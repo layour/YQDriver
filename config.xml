@@ -13,7 +13,7 @@
   <versionName>1.0.0</versionName>  
   <orientation>unspecified</orientation>  
   <permission id="android.permission.INTERNET"></permission>  
-  <statusBarStyle>light</statusBarStyle>  
+  <statusBarStyle>dark</statusBarStyle>  
   <fullScreen>true</fullScreen>  
   <windowSoftInputMode>stateHidden</windowSoftInputMode>  
   <import id="cordova-plugin-compat" type="web" ref="cordova"></import>  
