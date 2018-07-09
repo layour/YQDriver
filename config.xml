@@ -2,7 +2,7 @@
 
 <application> 
   <app_start>html/driver/login.html</app_start>  
-  <app_name>YQDriver</app_name>  
+  <app_name>众鑫司机</app_name>  
   <project_name>YQDriver</project_name>  
   <package_name>com.yq.driver</package_name>  
   <frame_name>summer-um</frame_name>  
