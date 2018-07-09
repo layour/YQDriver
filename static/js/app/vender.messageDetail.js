@@ -1606,7 +1606,7 @@ if("undefined"==typeof o&&(o=!!(o||Math.abs(d-x.y)>Math.abs(c-x.x))),o)return vo
 /**
  * Created by zhujinyu on 2018/2/7.
  */
-var BASE_URL = '/app';
+var BASE_URL = 'http://118.190.152.119/app';
 
 /**渲染模板*/
 function getRenderTmpl(tmpl, data_set) {
