@@ -2,7 +2,8 @@
  * Created by Administrator on 2018/3/25.
  */
 
-$(function () {
+;//$(function () {
+summerready = function(){
     $.showPreloader();
     /*获取司机个人信息*/
     function getDriverInfo() {
@@ -41,4 +42,5 @@ $(function () {
     })
     getDriverInfo();
     $.init();
-})
+    }
+//})

@@ -1,6 +1,7 @@
 
 
-;$(function () {
+;//$(function () {
+summerready = function(){
     var id = getQueryString("id");
     var $venderResourceId = $("#resourceGrade");
     var $amount_box = $(".amount-box");
@@ -236,4 +237,5 @@
     // 	pageGo("consumerList");
     // }
     $.init();
-});
+    }
+//});

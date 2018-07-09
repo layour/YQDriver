@@ -4,7 +4,8 @@
 /**
  * Created by Administrator on 2018/4/1.
  */
-;$(function () {
+;//$(function () {
+summerready = function(){
     var type;
     var ispayTmpl = 'shoushu';
     //获取司机基本信息
@@ -105,4 +106,5 @@
     //     pageGo("me");
     // }
     $.init();
-})
+    }
+//})

@@ -1,7 +1,8 @@
 /**
  * Created by zhujinyu on 2018/3/6.
  */
-;$(function () {
+;//$(function () {
+summerready = function(){
     'use strict';
     var $registerBtn = $("#register");//注册按钮
     var $mobile = $("#mobile");//手机号
@@ -445,4 +446,5 @@
     //     })
     // }
     $.init();
-});
+    }
+//});

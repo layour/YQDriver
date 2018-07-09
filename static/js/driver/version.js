@@ -4,7 +4,8 @@
 /**
  * Created by Administrator on 2018/4/9.
  */
-;$(function () {
+;//$(function () {
+summerready = function(){
     getAPPMethod(function () {
         if(window.gasstation){
             var version = window.gasstation.getVersion();
@@ -23,4 +24,5 @@
         $(".current-version").html(str);
     }
     $.init();
-})
+   }
+//})

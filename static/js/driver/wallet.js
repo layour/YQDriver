@@ -1,7 +1,8 @@
 /**
  * Created by Administrator on 2018/4/29.
  */
-;$(function () {
+;//$(function () {
+summerready = function(){
     $(".saoma").on("click", function () {
         getAPPMethod(function () {
             if (window.gasstation) {
@@ -13,4 +14,5 @@
             }
         })
     })
-})
+    }
+//})

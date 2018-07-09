@@ -3681,6 +3681,10 @@ function ajaxRequests(url,type,data,callback,errorBack) {
         }
     }
     if (type == 'get') {
+    		window.cordovaHTTP.settings = {
+				timeout: 10000
+			};
+
 			summer.ajax({
 				type: type,
 				url: BASE_URL + url,
@@ -3739,10 +3743,13 @@ function ajaxRequests(url,type,data,callback,errorBack) {
             }
         })*/
     } else {
+    		window.cordovaHTTP.settings = {
+				timeout: 10000
+			};
 			summer.ajax({
 				type: type,
 				url: BASE_URL + url,
-				param:  params.data,
+				param: data,
 			header: {
 				"Content-Type": "application/json",
 				 "token":token
@@ -3809,7 +3816,7 @@ function ajaxCompleteRequests(url,type,data,callback,beforeSend,complete) {
 			summer.ajax({
 				type: type,
 				url: BASE_URL + url,
-				param:  params.data,
+				param:  data,
 			header: {
 				"Content-Type": "application/json",
 				 "token":token

@@ -1,4 +1,5 @@
-;$(function () {
+;//$(function () {
+summerready = function(){
     'use strict';
     /*加载模板数据*/
     var params = [{loading: true}, {loading: true}];
@@ -190,6 +191,7 @@
         })
     };
     appAutoLogin();
-});
+   }
+//});
 
 

@@ -1,7 +1,8 @@
 /**
  * Created by Administrator on 2018/3/29.
  */
-$(function () {
+;//$(function () {
+summerready = function(){
     $.showPreloader();
     var  $city_picker = $("#city_picker");
     function getDriverInfo() {
@@ -90,7 +91,8 @@ $(function () {
         addressId($city_picker);
     })
     $.init();
-})
+    }
+//})
 function setImage(path) {
     if (browser.versions.ios) {
         path =path.imageUrl;

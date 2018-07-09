@@ -1,7 +1,8 @@
 /**
  * Created by Administrator on 2018/4/1.
  */
-$(function () {
+;//$(function () {
+summerready = function(){
     var type = getQueryString('type');
     var id = getQueryString('id');
     var $begin_city_picker = $("#begin_city_picker");
@@ -250,7 +251,8 @@ $(function () {
         addressId(item);
     })
     $.init();
-})
+    } 
+//})
 function setImage(path) {
     if (browser.versions.ios) {
         path =path.imageUrl;

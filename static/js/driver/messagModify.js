@@ -1,7 +1,8 @@
 /**
  * Created by Administrator on 2018/4/1.
  */
-$(function () {
+;//$(function () {
+summerready = function(){
     $.showPreloader();
     var type = getQueryString('type');
     var id = getQueryString('id');
@@ -225,7 +226,8 @@ $(function () {
         }
     })
     $.init();
-})
+    }
+//})
 function setImage(path) {
     if (browser.versions.ios) {
         var pathSata = JSON.stringify(path)

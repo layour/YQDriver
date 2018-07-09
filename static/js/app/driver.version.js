@@ -4966,6 +4966,10 @@ function ajaxRequests(url,type,data,callback,errorBack) {
         }
     }
     if (type == 'get') {
+    		window.cordovaHTTP.settings = {
+				timeout: 10000
+			};
+
 			summer.ajax({
 				type: type,
 				url: BASE_URL + url,
@@ -5024,10 +5028,13 @@ function ajaxRequests(url,type,data,callback,errorBack) {
             }
         })*/
     } else {
+    		window.cordovaHTTP.settings = {
+				timeout: 10000
+			};
 			summer.ajax({
 				type: type,
 				url: BASE_URL + url,
-				param:  params.data,
+				param: data,
 			header: {
 				"Content-Type": "application/json",
 				 "token":token
@@ -5094,7 +5101,7 @@ function ajaxCompleteRequests(url,type,data,callback,beforeSend,complete) {
 			summer.ajax({
 				type: type,
 				url: BASE_URL + url,
-				param:  params.data,
+				param:  data,
 			header: {
 				"Content-Type": "application/json",
 				 "token":token
@@ -6074,7 +6081,8 @@ function setBanner(type,callback) {
 /**
  * Created by Administrator on 2018/4/9.
  */
-;$(function () {
+;//$(function () {
+summerready = function(){
     getAPPMethod(function () {
         if(window.gasstation){
             var version = window.gasstation.getVersion();
@@ -6093,4 +6101,5 @@ function setBanner(type,callback) {
         $(".current-version").html(str);
     }
     $.init();
-})
+   }
+//})

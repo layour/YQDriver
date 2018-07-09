@@ -1,7 +1,8 @@
 /**
  * Created by Administrator on 2018/4/1.
  */
-;$(function () {
+;//$(function () {
+summerready = function(){
     var id = getQueryString("id");
     var mode = getQueryString("mode");
     var type = getQueryString("type");
@@ -231,4 +232,5 @@
     //     pageGo("consumerList");
     // }
     $.init();
-})
+    }
+//})

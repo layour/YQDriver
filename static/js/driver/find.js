@@ -1,4 +1,5 @@
-;$(function () {
+;//$(function () {
+summerready = function(){
     'use strict';
     $.showPreloader();
     var lng,lat;
@@ -272,4 +273,5 @@
         getListData();
         $.init();
     })
-});
+    }
+//});
