@@ -3160,7 +3160,7 @@ var config = {
                             //alert(typeof ret)// --> object
 
                             if (typeof ret == "string") {
-                                ret = $summer.strToJson(ret);
+                                ret = JSON.parse(ret);
 
                             }
                             //alert($summer.jsonToStr(ret));
@@ -3290,7 +3290,7 @@ var config = {
 
             strJson = strJson || '{}';
             try {
-                return summer.require('summer-plugin-service.XService').call(srvName, $summer.strToJson(strJson));
+                return summer.require('summer-plugin-service.XService').call(srvName, JSON.parse(strJson));
             } catch (e) {
                 if ($summer.__debug)
                     alert("Excp6.1: 异步调用summer-plugin-service.XService异常:" + e);
@@ -3839,7 +3839,7 @@ var config = {
                 //Setp1: jsonArgs JSON Format
                 if (typeof jsonArgs == "string") {
                     try {
-                        var json = $summer.strToJson(jsonArgs);
+                        var json =(jsonArgs);
                         if (typeof json != "object") {
                             alert("调用服务[" + serviceType + "]时参数不是一个有效的json字符串。参数是" + jsonArgs);
                             return;
@@ -4156,7 +4156,7 @@ var config = {
         getScreenWidth: function () {
             if (!this._deviceInfo_Screen) {
                 var strd_info = this.getDeviceInfo();
-                var info = $summer.strToJson(strd_info);
+                var info = JSON.parse(strd_info);
                 this._deviceInfo_Screen = info.screen;
             }
             if (this._deviceInfo_Screen) {
@@ -4168,7 +4168,7 @@ var config = {
         getScreenHeight: function () {
             if (!this._deviceInfo_Screen) {
                 var strd_info = this.getDeviceInfo();
-                var info = $summer.strToJson(strd_info);
+                var info = JSON.parse(strd_info);
                 this._deviceInfo_Screen = info.screen;
             }
             if (this._deviceInfo_Screen) {
@@ -4180,7 +4180,7 @@ var config = {
         getScreenDensity: function () {
             if (!this._deviceInfo_Screen) {
                 var strd_info = this.getDeviceInfo();
-                var info = $summer.strToJson(strd_info);
+                var info = JSON.parse(strd_info);
                 this._deviceInfo_Screen = info.screen;
             }
             if (this._deviceInfo_Screen) {
@@ -4437,7 +4437,7 @@ var config = {
         getNetworkInfo: function () {
             var result = s.callService("UMNetwork.getNetworkInfo", {}, true);//同步
             if (typeof result == "string") {
-                return $summer.strToJson(result);
+                return JSON.parse(result);
             } else {
                 return result;
             }
