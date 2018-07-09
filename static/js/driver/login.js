@@ -407,7 +407,8 @@
                             "id": id
                         }
                         var messageStr = JSON.stringify(message);
-                        getAPPMethod(function () {
+                        setCookie("messageStr",messageStr);
+                      /*  getAPPMethod(function () {
                             if(window.gasstation){
                                 window.gasstation.saveCookie(messageStr);
                             }
@@ -415,7 +416,7 @@
                             if(window.webkit){
                                 window.webkit.messageHandlers.saveCookie.postMessage(messageStr);
                             }
-                        });
+                        });*/
                         pageGo("index");
                     }else{
                         $.toast(response.retMsg||'登录失败', 3000);

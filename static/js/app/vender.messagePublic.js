@@ -10713,13 +10713,11 @@ var config = {
         { 'type':'4401',name:'广州'},
         { 'type':'4403',name:'深圳'}
         ]
-};/*引入summer.js*/
-/*
- * Summer JavaScript Library
- * Copyright (c) 2016 yonyou.com
- * Author: gct@yonyou.com
- * Version: 0.3.0.20170419.1411
+};/*引入summer.js 
+     3行-1826行
+     zhoulei修改
  */
+ 
 (function (global, factory) {
     if (typeof module === "object" && typeof module.exports === "object") {
         module.exports = global.document ?
@@ -12457,13 +12455,51 @@ var config = {
     s.netAvailable = s.UMNet.available;
     s.getNetworkInfo = s.UMNet.getNetworkInfo;
 
-    s.ajax = function (json, successFn, errFn) {
+    /*s.ajax = function (json, successFn, errFn) {
         if (json.type.toLowerCase() == "get") {
             return cordovaHTTP.get(json.url || "", json.param || {}, json.header || {}, successFn, errFn);
         } else if (json.type.toLowerCase() == "post") {
             return cordovaHTTP.post(json.url || "", json.param || {}, json.header || {}, successFn, errFn);
         }
-    };
+    };*/
+       s.ajax = function(json, successFn, errFn){
+		if(json.type.toLowerCase() == "get"){
+			return summer.get(json.url || "", json.param || {}, json.header || {}, successFn, errFn);
+		}else if(json.type.toLowerCase() == "post"){
+			if($summer.os == "android" && $ && json.header && json.header["Content-Type"] == "application/json"){
+				var jsonAjax = {};
+					jsonAjax["type"] = 'post';
+					jsonAjax["url"] = json.url;
+					if(json.param)
+						jsonAjax["data"] = JSON.stringify(json.param);//后端得到json字符串
+					if(json.header && json.header["Content-Type"])
+						jsonAjax["contentType"] = json.header["Content-Type"];
+					jsonAjax["processData"] = true;
+					if(json.dataType)
+						jsonAjax["dataType"] = json.dataType;//当服务器返回json,jquery返回的是json还是jsonstring
+					if(json.header){
+						jsonAjax["beforeSend"] =  function(request){
+							for(var key in json.header){
+								if(key == "Content-Type") continue;
+								request.setRequestHeader(key, json.header[key]);
+							}
+						}
+					}
+					jsonAjax["success"] = function(data){
+						if(successFn)
+							successFn({data:data});
+					};
+					jsonAjax["error"] = function(data){
+						if(errFn)
+							errFn({data:data});
+					};
+				
+				return $.ajax(jsonAjax);
+			}else{
+				return summer.post(json.url || "", json.param || {}, json.header || {}, successFn, errFn);
+			}
+		}
+	};
     s.get = function (url, param, header, successFn, errFn) {
         return cordovaHTTP.get(url || "", param || {}, header || {}, successFn, errFn);
     };
@@ -12680,8 +12716,41 @@ function ajaxRequest(params) {
             pageGo("login");
         }
     }
+	/*改造成summer.ajax 
+	   zhoulei修改
+	 */
+	//设置超时
+	window.cordovaHTTP.settings = {
+		timeout: 10000
+	};
+	summer.ajax({
+		type: params.type,
+		url: BASE_URL + params.url,
+		param:  params.data,
+		header: {
+		"Content-Type": "application/json",
+		 "token":token
+		}
+	}, function (response) {
+		if (Object.prototype.toString.call(response.data) === '[object String]') {
+			response.data = JSON.parse(response.data);
+		}
+		response = response.data;
+ 		if(response.retCode === '1000'){
+                pageGo("login");
+            }else{
+                params.callback && params.callback(response);
+            }
+	}, function (status) {
+			console.log(status);
+ 		      if(status=='timeout'){
+                $.alert("请求超时,请重新刷新页面", '',function () {
+                    window.location.reload();
+                });
+            }
+	});
 
-    $.ajax({
+  /*  $.ajax({
         headers: {
             Accept: "application/json; charset=utf-8",
             token:token
@@ -12707,7 +12776,8 @@ function ajaxRequest(params) {
                 });
             }
         }
-    })
+    })*/
+   
 }
 /**新ajax请求封装*/
 function ajaxRequests(url,type,data,callback,errorBack) {
@@ -12729,7 +12799,34 @@ function ajaxRequests(url,type,data,callback,errorBack) {
         }
     }
     if (type == 'get') {
-        $.ajax({
+			summer.ajax({
+				type: type,
+				url: BASE_URL + url,
+				param: {},
+			header: {
+				"Content-Type": "application/json",
+				 "token":token
+				}
+			}, function (response) {
+				if (Object.prototype.toString.call(response.data) === '[object String]') {
+					response.data = JSON.parse(response.data);
+				}
+				response = response.data;
+		 		  if(response.retCode === '1000'){
+                    pageGo("login");
+                }else{
+                    callback && callback(response);
+                }
+                console.timeEnd('请求计时');
+			}, function (status) {
+					console.log(status);
+ 					  if(status=='timeout'){
+		                    $.alert("请求超时,请重新刷新页面", '',function () {
+		                        window.location.reload();
+		                    });
+		                }
+			});
+    /*    $.ajax({
             headers: {
                 Accept: "application/json; charset=utf-8",
                 token: token
@@ -12758,9 +12855,36 @@ function ajaxRequests(url,type,data,callback,errorBack) {
                     });
                 }
             }
-        })
+        })*/
     } else {
-        $.ajax({
+			summer.ajax({
+				type: type,
+				url: BASE_URL + url,
+				param:  params.data,
+			header: {
+				"Content-Type": "application/json",
+				 "token":token
+				}
+			}, function (response) {
+ 				if (Object.prototype.toString.call(response.data) === '[object String]') {
+					response.data = JSON.parse(response.data);
+				}
+				response = response.data;
+                if(response.retCode === '1000'){
+                    pageGo("login");
+                }else{
+                    callback && callback(response);
+                }
+                console.timeEnd('请求计时');
+			}, function (status) {
+					console.log(status);
+ 					  if(status=='timeout'){
+		                    $.alert("请求超时,请重新刷新页面", '',function () {
+		                        window.location.reload();
+		                    });
+		                }
+			});
+       /* $.ajax({
             headers: {
                 Accept: "application/json; charset=utf-8",
                 token: token
@@ -12790,14 +12914,42 @@ function ajaxRequests(url,type,data,callback,errorBack) {
                     });
                 }
             }
-        })
+        })*/
     }
 }
 /**完整ajax请求*/
 function ajaxCompleteRequests(url,type,data,callback,beforeSend,complete) {
     console.time('请求计时');
     var token = getCookie("token");
-    $.ajax({
+        	   window.cordovaHTTP.settings = {
+				timeout: 10000
+			};
+			summer.ajax({
+				type: type,
+				url: BASE_URL + url,
+				param:  params.data,
+			header: {
+				"Content-Type": "application/json",
+				 "token":token
+				}
+			}, function (response) {
+				if (Object.prototype.toString.call(response.data) === '[object String]') {
+			response.data = JSON.parse(response.data);
+		}
+				response = response.data;
+ 				callback && callback(response);
+           		 console.timeEnd('请求计时');
+			}, function (status) {
+				 console.log("请求完成");
+	            if(status=='timeout'){
+	                $.alert("请求超时,重新刷新页面", '',function () {
+	                    window.location.reload();
+	                });
+	            }else{
+	                complete && complete();
+	            }
+			});
+    /*$.ajax({
         headers: {
             Accept: "application/json; charset=utf-8",
             token: token
@@ -12827,7 +12979,7 @@ function ajaxCompleteRequests(url,type,data,callback,beforeSend,complete) {
                 complete && complete();
             }
         }
-    })
+    })*/
 }
 var t;
 /**验证码倒计时*/
