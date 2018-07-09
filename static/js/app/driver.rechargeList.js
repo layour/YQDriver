@@ -2884,6 +2884,8 @@ var config = {
 };/**
  * Created by zhujinyu on 2018/2/7.
  */
+//var BASE_URL = '/app';
+//Aman工作室修改//
 var BASE_URL = 'http://118.190.152.119/app';
 
 /**渲染模板*/
@@ -3422,7 +3424,7 @@ function timestampToTime(timestamp) {
     return Y+M+D+h+m+s;
 }
 //设置cookies
-function setCookie(name,value){
+/*function setCookie(name,value){
     var Days = 30;
     var exp = new Date();
     exp.setTime(exp.getTime() + Days*24*60*60*1000);
@@ -3447,7 +3449,24 @@ function delCookie(name){
     var cval=getCookie(name);
     if(cval!=null)
         document.cookie= name + "="+cval+";expires="+exp.toGMTString()+";path=/";
+}*/
+
+//Aman工作室修改//
+function setCookie(name, value){
+    var storage = window.localStorage;
+    storage.setItem(name, value);
 }
+
+function getCookie(name){
+    var storage = window.localStorage;
+    return storage.getItem(name);
+}
+
+function delCookie(name){
+    var storage = window.localStorage;
+    storage.removeItem(name);
+}
+
 //判断是否为空
 function isNUll(param) {
     if (param == "" || typeof(param) == "undefined") {
