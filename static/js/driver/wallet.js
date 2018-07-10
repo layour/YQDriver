@@ -4,7 +4,19 @@
 ;//$(function () {
 summerready = function(){
     $(".saoma").on("click", function () {
-        getAPPMethod(function () {
+    	var params = {zxing : false};
+			ZBar.scan(params, function(args){
+			    summer.toast({
+			        msg: args,
+			        duration:"long"
+			    });
+			}, function(args){
+			    summer.toast({
+			        msg: args,
+			         duration:"long"
+			    });
+			});
+      /*  getAPPMethod(function () {
             if (window.gasstation) {
                 window.gasstation.zxingClick();
             }
@@ -12,7 +24,7 @@ summerready = function(){
             if(window.webkit){
                 window.webkit.messageHandlers.zxingClick.postMessage(null);
             }
-        })
+        })*/
     })
     }
 //})

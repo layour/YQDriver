@@ -6110,11 +6110,13 @@ summerready = function(){
  		var params = {zxing : false};
 			ZBar.scan(params, function(args){
 			    summer.toast({
-			        msg: args
+			        msg: args,
+			         duration:"long"
 			    });
 			}, function(args){
 			    summer.toast({
-			        msg: args
+			        msg: args,
+			         duration:"long"
 			    });
 			});
        /* getAPPMethod(function () {
