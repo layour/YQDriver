@@ -10643,7 +10643,7 @@ var config = {
             if (typeof msg == "string") {
                 alert(msg);
             } else if (typeof msg == "object") {
-                alert(u.jsonToStr(msg));
+                alert(u.JSON.parse(msg));
             } else {
                 alert(msg);
             }
@@ -10832,7 +10832,7 @@ var config = {
                                 ret = JSON.parse(ret);
 
                             }
-                            //alert($summer.jsonToStr(ret));
+                            //alert($summer.JSON.parse(ret));
                             summer.pageParam = ret;//put the param in summer
                             if (summer.autoShowWin !== false) {
                                 summer.showWin({});
@@ -11530,14 +11530,14 @@ var config = {
                     s.UMService._callbackProxy(jsonArgs, "error");
 
                     try {
-                        serviceparams = $summer.jsonToStr(jsonArgs);
+                        serviceparams = JSON.parse(jsonArgs);
                         if (typeof serviceparams == "object") {
                             //转string后仍然为json，则报错，规定：调用服务的参数如果是字符串，必须是能转为json的字符串才行
                             alert("调用服务[" + serviceType + "]时传递的参数不能标准化为json字符串，请检查参数格式" + jsonArgs);
                             return;
                         }
                     } catch (e) {
-                        alert("Excp4: 校验jsonArgs是否可jsonToStr时异常:" + e);
+                        alert("Excp4: 校验jsonArgs是否可JSON.parse时异常:" + e);
                     }
 
                     if (isSync) {
@@ -11816,7 +11816,7 @@ var config = {
         getDeviceInfo: function (jsonArgs) {
             var result = "";
             if (jsonArgs) {
-                result = s.callService("UMDevice.getDeviceInfo", $summer.jsonToStr(jsonArgs), false);
+                result = s.callService("UMDevice.getDeviceInfo",JSON.parse(jsonArgs), false);
             } else {
                 result = s.callService("UMDevice.getDeviceInfo", "", true);
             }

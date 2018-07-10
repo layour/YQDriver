@@ -30,7 +30,17 @@ summerready = function(){
         })
     }
     $(".scan").on("click",function () {
-        getAPPMethod(function () {
+ 		var params = {zxing : false};
+			ZBar.scan(params, function(args){
+			    summer.toast({
+			        msg: args
+			    });
+			}, function(args){
+			    summer.toast({
+			        msg: args
+			    });
+			});
+       /* getAPPMethod(function () {
             if (window.gasstation) {
                 window.gasstation.zxingClick();
             }
@@ -38,7 +48,7 @@ summerready = function(){
             if(window.webkit){
                 window.webkit.messageHandlers.zxingClick.postMessage(null);
             }
-        })
+        })*/
     })
     getDriverInfo();
     $.init();
