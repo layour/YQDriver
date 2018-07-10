@@ -6083,7 +6083,8 @@ var config = {
         { 'type':'4401',name:'广州'},
         { 'type':'4403',name:'深圳'}
         ]
-};$(function () {
+};;//$(function () {
+summerready = function(){
     'use strict';
     var companyType = getCookie("companyType");
     var $infinite_scroll_preloader = $(".infinite-scroll-preloader");
@@ -6378,5 +6379,6 @@ var config = {
     if (orgin == "transfer") {
         $(".btn_2").trigger("click");
     }
-});
+    }
+//});
 

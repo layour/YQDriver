@@ -4793,7 +4793,8 @@ function setBanner(type,callback) {
 };/**
  * Created by Administrator on 2018/4/5.
  */
-$(function () {
+;//$(function () {
+summerready = function(){
     'use strict';
     ajaxRequests('/venderTransfer/oilGasTransferPre', 'get', {}, function (response) {
         if (response.retCode === '0') {
@@ -4841,5 +4842,6 @@ $(function () {
         })
     })
     $.init();
-});
+    }
+//});
 

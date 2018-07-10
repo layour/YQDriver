@@ -4793,7 +4793,8 @@ function setBanner(type,callback) {
 };/**
  * Created by Administrator on 2018/4/9.
  */
-$(function () {
+;//$(function () {
+summerready = function(){
     $.init();
     $(document).on('click', "#outLogin", function () {
         ajaxRequests('/venderInfo/loginOut', 'get', {
@@ -4819,5 +4820,6 @@ $(function () {
             }
         })
     })
+    }
 
-})
+//})

@@ -6083,7 +6083,8 @@ var config = {
         { 'type':'4401',name:'广州'},
         { 'type':'4403',name:'深圳'}
         ]
-};;$(function () {
+};;//$(function () {
+summerready = function(){
     'use strict';
     $.showPreloader();
     var lng,lat;
@@ -6379,4 +6380,5 @@ var config = {
         }
         $.init();
     })
-});
+    }
+//});

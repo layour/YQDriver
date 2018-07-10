@@ -6078,7 +6078,8 @@ function setBanner(type,callback) {
 };/**
  * Created by Administrator on 2018/4/7.
  */
-$(function () {
+;//$(function () {
+summerready = function(){
     'use strict';
     $.init();
     var id = getCookie("id");
@@ -6147,4 +6148,5 @@ $(function () {
 
         }
     })
-});
+    }
+//});

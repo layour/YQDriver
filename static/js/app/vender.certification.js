@@ -6078,7 +6078,8 @@ function setBanner(type,callback) {
 };/**
  * Created by Administrator on 2018/4/9.
  */
-;$(function () {
+;//$(function () {
+summerready = function(){
     $.init();
     $.showPreloader();
     var $businessLicensePath = $("#businessLicensePath");//营业执照
@@ -6164,7 +6165,8 @@ function setBanner(type,callback) {
             $.alert('暂无图片上传功能');
         })
     })
-})
+    }
+//})
 function setImage(path,type) {
     if (browser.versions.ios) {
         path =path.imageUrl;

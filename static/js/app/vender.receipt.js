@@ -6076,7 +6076,8 @@ function setBanner(type,callback) {
             callback && callback(response);
         }
     })
-};;$(function () {
+};;//$(function () {
+summerready = function(){
     'use strict';
     var id = getQueryString("id");
     var venderId = getCookie("id");
@@ -6286,4 +6287,5 @@ function setBanner(type,callback) {
 
     }
     $.init();
-});
+    }
+//});

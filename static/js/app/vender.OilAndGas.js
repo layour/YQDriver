@@ -6078,7 +6078,8 @@ function setBanner(type,callback) {
 };/**
  * Created by Administrator on 2018/4/6.
  */
-$(function () {
+;//$(function () {
+summerready = function(){
     var id = getQueryString("id");
     //生成燃料类型选择
     var $resourceType = $("#resourceType");//燃料类型选择
@@ -6161,4 +6162,5 @@ $(function () {
 
     }
     $.init();
-})
+    }
+//})

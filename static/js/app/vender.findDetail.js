@@ -6076,7 +6076,8 @@ var config = {
         { 'type':'4401',name:'广州'},
         { 'type':'4403',name:'深圳'}
         ]
-};$(function () {
+};;//$(function () {
+summerready = function(){
     var id = getQueryString("id");
     var type = getQueryString("type");
     var infoId = '';
@@ -6097,4 +6098,5 @@ var config = {
         }
     })
     $.init();
-})
+    }
+//})

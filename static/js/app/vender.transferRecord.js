@@ -6079,7 +6079,8 @@ function setBanner(type,callback) {
 };/**
  * Created by Administrator on 2018/4/10.
  */
-$(function () {
+;//$(function () {
+summerready = function(){
     var currentPage = 1;
     var totalpage = 1;
     var $infinite_scroll_preloader = $(".infinite-scroll-preloader");
@@ -6156,4 +6157,5 @@ $(function () {
     }
     getTransferList();
     $.init();
-})
+    }
+//})
