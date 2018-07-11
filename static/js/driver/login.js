@@ -427,6 +427,11 @@ summerready = function(){
             ajaxRequest(params);
         }
     });
+    //自动登录
+    var token = getCookie("token");
+	   if(token){
+	   		pageGo("index");
+	   }
     //注释自动登录
     // if(window.location.pathname=="/app/html/driver/login.html"){
     //     getAPPMethod(function () {
