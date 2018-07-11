@@ -4798,6 +4798,7 @@ function getLngLat(callback,error) {
                 timeout: 10000,          //超过10秒后停止定位，默认：无穷大
                 buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
             });
+          
             geolocation.getCurrentPosition(function (status,result) {
                 if (status == "complete" ||status == "ok") {
                     var str = [];
