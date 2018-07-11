@@ -4,7 +4,7 @@
   <app_start>html/driver/login.html</app_start>  
   <app_name>众鑫司机</app_name>  
   <project_name>YQDriver</project_name>  
-  <package_name>com.yq.driver</package_name>  
+  <package_name>com.tencent.mobileqq.gasstation</package_name>  
   <frame_name>summer-um</frame_name>  
   <theme>blue</theme>  
   <icon relativePath="css/themes/default/app">app</icon>  
