@@ -10,6 +10,7 @@
             <path path="js/lib/sui/sm-extend.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+        	<path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/index.js"></path>
         </concat>
@@ -18,6 +19,7 @@
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+        	<path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/detail.js"></path>
         </concat>
@@ -26,6 +28,7 @@
             <path path="js/lib/sui/sm.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+        	<path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/site.js"></path>
         </concat>
@@ -35,6 +38,7 @@
             <path path="js/lib/sui/sm-extend.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+        	<path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/find.js"></path>
         </concat>
@@ -43,6 +47,7 @@
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/findlist.js"></path>
         </concat>
@@ -51,6 +56,7 @@
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/findDetail.js"></path>
         </concat>
@@ -58,6 +64,7 @@
             <path path="js/lib/zepto.js"></path>
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/me.js"></path>
         </concat>
@@ -67,6 +74,8 @@
             <path path="js/lib/sui/sm-city-picker.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
+            <path path="js/common/aman.ui.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/modify.js"></path>
         </concat>
@@ -75,6 +84,7 @@
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/recharge.js"></path>
         </concat>
@@ -82,6 +92,7 @@
             <path path="js/lib/zepto.js"></path>
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/setPassWord.js"></path>
         </concat>
@@ -89,6 +100,7 @@
             <path path="js/lib/zepto.js"></path>
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/forgetWord.js"></path>
         </concat>
@@ -97,6 +109,7 @@
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/consumerList.js"></path>
         </concat>
@@ -105,6 +118,7 @@
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/consumerReturnRecord.js"></path>
         </concat>
@@ -113,6 +127,7 @@
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/rechargeList.js"></path>
         </concat>
@@ -121,6 +136,7 @@
             <path path="js/lib/sui/sm.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/consumeDetail.js"></path>
         </concat>
@@ -129,6 +145,7 @@
             <path path="js/lib/sui/sm.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/rechargeDetail.js"></path>
         </concat>
@@ -138,6 +155,7 @@
             <path path="js/lib/sui/sm-city-picker.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/messagePublic.js"></path>
         </concat>
@@ -147,6 +165,7 @@
             <path path="js/lib/sui/sm-city-picker.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/messagModify.js"></path>
         </concat>
@@ -155,6 +174,7 @@
             <path path="js/lib/sui/sm.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/transferRecord.js"></path>
         </concat>
@@ -163,6 +183,7 @@
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/message.js"></path>
         </concat>
@@ -171,6 +192,7 @@
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/messgeDetail.js"></path>
         </concat>
@@ -178,6 +200,7 @@
             <path path="js/lib/zepto.js"></path>
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/transfer.js"></path>
         </concat>
@@ -186,6 +209,7 @@
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/record.js"></path>
         </concat>
@@ -196,6 +220,7 @@
             <path path="js/lib/sui/sm-city-picker.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/invoiceApplication.js"></path>
         </concat>
@@ -203,12 +228,14 @@
             <path path="js/lib/zepto.js"></path>
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/set.js"></path>
         </concat>
         <concat destfile="js/app/driver.wallet.js" encoding="utf8">
             <path path="js/lib/zepto.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/wallet.js"></path>
         </concat>
@@ -216,6 +243,7 @@
             <path path="js/lib/zepto.js"></path>
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/login.js"></path>
         </concat>
@@ -223,6 +251,7 @@
             <path path="js/lib/zepto.js"></path>
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/setPassWord.js"></path>
         </concat>
@@ -230,6 +259,7 @@
             <path path="js/lib/zepto.js"></path>
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/version.js"></path>
         </concat>
@@ -237,6 +267,7 @@
             <path path="js/lib/zepto.js"></path>
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/vender/login.js"></path>
         </concat>
@@ -245,8 +276,9 @@
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/sui/sm-extend.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
-            <path path="js/common/base.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
+            <path path="js/common/base.js"></path>
             <path path="js/vender/index.js"></path>
         </concat>
         <concat destfile="js/app/vender.venderDetail.js" encoding="utf8">
@@ -254,8 +286,9 @@
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/sui/sm-extend.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
-            <path path="js/common/base.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
+            <path path="js/common/base.js"></path>
             <path path="js/vender/venderDetail.js"></path>
         </concat>
         <concat destfile="js/app/vender.receipt.js" encoding="utf8">
@@ -264,12 +297,14 @@
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/qrcode.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/vender/receipt.js"></path>
         </concat>
         <concat destfile="js/app/vender.transfer.js" encoding="utf8">
             <path path="js/lib/zepto.js"></path>
             <path path="js/lib/sui/sm.min.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/vender/transfer.js"></path>
         </concat>
@@ -277,6 +312,7 @@
             <path path="js/lib/zepto.js"></path>
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/vender/transferDetail.js"></path>
         </concat>
@@ -285,6 +321,7 @@
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/sui/sm-extend.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/vender/recharge.js"></path>
         </concat>
@@ -292,6 +329,7 @@
             <path path="js/lib/zepto.js"></path>
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/vender/rechargeDetail.js"></path>
         </concat>
@@ -300,8 +338,9 @@
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/sui/sm-extend.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
-            <path path="js/common/base.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
+            <path path="js/common/base.js"></path>
             <path path="js/vender/find.js"></path>
         </concat>
         <concat destfile="js/app/vender.findList.js" encoding="utf8">
@@ -309,16 +348,18 @@
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/sui/sm-extend.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
-            <path path="js/common/base.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
+            <path path="js/common/base.js"></path>
             <path path="js/vender/findlist.js"></path>
         </concat>
         <concat destfile="js/app/vender.findDetail.js" encoding="utf8">
             <path path="js/lib/zepto.js"></path>
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
-            <path path="js/common/base.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
+            <path path="js/common/base.js"></path>
             <path path="js/vender/findDetail.js"></path>
         </concat>
         <concat destfile="js/app/vender.messageList.js" encoding="utf8">
@@ -326,8 +367,9 @@
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/sui/sm-extend.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
-            <path path="js/common/base.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
+            <path path="js/common/base.js"></path>
             <path path="js/vender/messageList.js"></path>
         </concat>
         <concat destfile="js/app/vender.messagePublic.js" encoding="utf8">
@@ -337,6 +379,7 @@
             <path path="js/lib/sui/sm-extend.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/vender/messagePublic.js"></path>
         </concat>
@@ -345,12 +388,14 @@
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/sui/sm-extend.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/vender/messageDetail.js"></path>
         </concat>
         <concat destfile="js/app/vender.me.js" encoding="utf8">
             <path path="js/lib/zepto.js"></path>
             <path path="js/lib/sui/sm.min.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/vender/me.js"></path>
         </concat>
@@ -358,6 +403,7 @@
             <path path="js/lib/zepto.js"></path>
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/vender/OilAndGas.js"></path>
         </concat>
@@ -367,6 +413,7 @@
             <path path="js/lib/sui/sm-extend.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/vender/OilAndGasList.js"></path>
         </concat>
@@ -374,6 +421,7 @@
             <path path="js/lib/zepto.js"></path>
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/vender/cashWithdrawal.js"></path>
         </concat>
@@ -381,18 +429,21 @@
             <path path="js/lib/zepto.js"></path>
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/vender/certification.js"></path>
         </concat>
         <concat destfile="js/app/vender.set.js" encoding="utf8">
             <path path="js/lib/zepto.js"></path>
             <path path="js/lib/sui/sm.min.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/vender/set.js"></path>
         </concat>
         <concat destfile="js/app/vender.wallet.js" encoding="utf8">
             <path path="js/lib/zepto.js"></path>
             <path path="js/lib/sui/sm.min.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/vender/wallet.js"></path>
         </concat>
@@ -400,6 +451,7 @@
             <path path="js/lib/zepto.js"></path>
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/vender/WithdrawalsRecord.js"></path>
         </concat>
@@ -408,6 +460,7 @@
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/vender/receiptRecord.js"></path>
         </concat>
@@ -416,6 +469,7 @@
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/vender/transferRecord.js"></path>
         </concat>
@@ -424,6 +478,7 @@
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/vender/BankCard.js"></path>
         </concat>
@@ -432,6 +487,7 @@
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/vender/addBank.js"></path>
         </concat>
@@ -441,6 +497,7 @@
             <path path="js/lib/sui/sm-city-picker.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/vender/invoiceApply.js"></path>
         </concat>
@@ -471,6 +528,7 @@
             <path path="css/driver/find.css"></path>
         </concat>
         <concat destfile="css/app/driver.loginRegister.css" encoding="utf8">
+            <path path="css/aman.css"></path>
             <path path="css/lib/sui/sm.min.css"></path>
             <path path="css/driver/registerLogin.css"></path>
         </concat>

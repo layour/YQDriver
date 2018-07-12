@@ -3030,11 +3030,12 @@ var config = {
         { 'type':'4401',name:'广州'},
         { 'type':'4403',name:'深圳'}
         ]
-};/*引入summer.js 
-     3行-1826行
-     zhoulei修改
+};/*
+ * Summer JavaScript Library
+ * Copyright (c) 2016 yonyou.com
+ * Author: gct@yonyou.com
+ * Version: 0.3.0.20170419.1411
  */
- 
 (function (global, factory) {
     if (typeof module === "object" && typeof module.exports === "object") {
         module.exports = global.document ?
@@ -3063,7 +3064,159 @@ var config = {
 
 
 // JavaScript Base Type Extra API
- 
+;(function () {
+    /**
+     * 删除左右两端的空格
+     */
+    String.prototype.trim = function () {
+        return this.replace(/(^\s*)|(\s*$)/g, "");
+    };
+    /**
+     * 删除左边的空格
+     */
+    String.prototype.ltrim = function () {
+        return this.replace(/(^\s*)/g, "");
+    };
+    /**
+     * 删除右边的空格
+     */
+    String.prototype.rtrim = function () {
+        return this.replace(/(\s*$)/g, "");
+    };
+    String.prototype.isNullOrEmpty = function () {
+        if (typeof this == "undefined" || this === null) {
+            return true;
+        }
+        if (typeof this == "string" && this === "") {
+            return true;
+        }
+        return false;
+    };
+
+    //给Number类型增加一个add方法，使用时直接用 .add 即可完成加法计算。
+    Number.prototype.add = function (arg) {
+        var accAdd = function (arg1, arg2) {
+            var r1, r2, m;
+            try {
+                r1 = arg1.toString().split(".")[1].length;
+            }
+            catch (e) {
+                r1 = 0;
+            }
+            try {
+                r2 = arg2.toString().split(".")[1].length;
+            }
+            catch (e) {
+                r2 = 0;
+            }
+            m = Math.pow(10, Math.max(r1, r2));
+            return (arg1 * m + arg2 * m) / m;
+        };
+
+        return accAdd(arg, this);
+    };
+
+    //给Number类型增加一个sub方法，，使用时直接用 .sub 即可完成减法计算。
+    Number.prototype.sub = function (arg) {
+        return this.add(this, -arg);
+    };
+
+    //给Number类型增加一个mul方法，使用时直接用 .mul 即可完成乘法计算。
+    Number.prototype.mul = function (arg) {
+        var accMul = function (arg1, arg2) {
+            var m = 0, s1 = arg1.toString(), s2 = arg2.toString();
+            try {
+                m += s1.split(".")[1].length;
+            }
+            catch (e) {
+            }
+            try {
+                m += s2.split(".")[1].length;
+            }
+            catch (e) {
+            }
+            return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
+        };
+
+        return accMul(arg, this);
+    };
+
+    //给Number类型增加一个div方法，，使用时直接用 .div 即可完成除法计算。
+    Number.prototype.div = function (arg) {
+        var accDiv = function (arg1, arg2) {
+            var t1 = 0, t2 = 0, r1, r2;
+            try {
+                t1 = arg1.toString().split(".")[1].length;
+            }
+            catch (e) {
+            }
+            try {
+                t2 = arg2.toString().split(".")[1].length;
+            }
+            catch (e) {
+            }
+            if (Math) {
+                r1 = Number(arg1.toString().replace(".", ""));
+                r2 = Number(arg2.toString().replace(".", ""));
+                return (r1 / r2) * pow(10, t2 - t1);
+            }
+        };
+        return accDiv(this, arg);
+    };
+
+    Array.prototype.remove = function (i) {
+        if (isNaN(i) || i < 0 || i >= this.length) {
+            return this;
+        }
+        this.splice(i, 1);
+        return this;
+    };
+    Array.prototype.remove2 = function (i) {
+        if (isNaN(i))
+            return this;
+        if (i < 0 || i >= this.length)
+            return this;
+        else
+            return this.slice(0, i).concat(this.slice(i + 1, this.length));
+    };
+    Array.prototype.remove3 = function (dx) {
+        if (isNaN(dx) || dx > this.length) {
+            return false;
+        }
+        for (var i = 0, n = 0; i < this.length; i++) {
+            if (this[i] != this[dx]) {
+                this[n++] = this[i];
+            }
+        }
+        this.length -= 1;
+    };
+    Array.prototype.insert = function (i, item) {
+        return this.splice(i, 0, item);
+    };
+    Date.prototype.format = function (format) {
+        // (new Date()).format("yyyy-MM-dd hh:mm:ss")
+        var o = {
+            "M+": this.getMonth() + 1, //month
+            "d+": this.getDate(), //day
+            "h+": this.getHours(), //hour
+            "m+": this.getMinutes(), //minute
+            "s+": this.getSeconds(), //second
+            "q+": Math.floor((this.getMonth() + 3) / 3), //quarter
+            "S": this.getMilliseconds() //millisecond
+        };
+
+        if (/(y+)/.test(format)) {
+            format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        }
+
+        for (var k in o) {
+            if (new RegExp("(" + k + ")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+            }
+        }
+        return format;
+    };
+})();
 
 // $summer  API
 ;(function () {
@@ -3116,7 +3269,7 @@ var config = {
             if (typeof msg == "string") {
                 alert(msg);
             } else if (typeof msg == "object") {
-                alert(u.JSON.parse(msg));
+                alert(u.jsonToStr(msg));
             } else {
                 alert(msg);
             }
@@ -3302,14 +3455,25 @@ var config = {
                             //alert(typeof ret)// --> object
 
                             if (typeof ret == "string") {
-                                ret = JSON.parse(ret);
+                                ret = $summer.strToJson(ret);
 
                             }
-                            //alert($summer.JSON.parse(ret));
+                            //alert($summer.jsonToStr(ret));
                             summer.pageParam = ret;//put the param in summer
                             if (summer.autoShowWin !== false) {
                                 summer.showWin({});
                             }
+                            summer.getOpenWinTime({}, function(ret) {
+                                var APMJSON = {
+                                    "windowid": summer.getSysInfo().winId,
+                                    "startTime": ret,
+                                    "endTime": new Date().getTime(),
+                                    "app_version": summer.getVersion().versionName
+                                };
+                                var APMPARAMS = ["FeLoad", APMJSON];
+                                console.log(APMPARAMS);
+                                cordova.require("summer-plugin-apm.SummerAPM").insertAction(APMPARAMS, function(args) {}, function(args) {})
+                            }, function(ret) {});
                             if (typeof summerready == "function")
                                 summerready();
                             else if (typeof summerReady == "function")
@@ -3327,7 +3491,7 @@ var config = {
                     summerDOMContentLoaded();
                 };
                 //document.currentScript.parentNode.insertBefore(_script, document.currentScript);
-                fs = document.getElementsByTagName('script')[0];
+                var fs = document.getElementsByTagName('script')[0];
                 fs.parentNode.insertBefore(_script, fs);
 
             }
@@ -3404,7 +3568,489 @@ var config = {
     };
 })(window);
 
- 
+//HTML DOM API by gct
+;(function (window) {
+    var u = window.$summer || {};
+    u.isElement = function (obj) {
+        return !!(obj && obj.nodeType == 1);
+    };
+    u.addEvt = function (el, name, fn, useCapture) {
+        if (!u.isElement(el)) {
+            console.warn('$summer.addEvt Function need el param, el param must be DOM Element');
+            return;
+        }
+        useCapture = useCapture || false;
+        if (el.addEventListener) {
+            el.addEventListener(name, fn, useCapture);
+        }
+    };
+    u.rmEvt = function (el, name, fn, useCapture) {
+        if (!u.isElement(el)) {
+            console.warn('$summer.rmEvt Function need el param, el param must be DOM Element');
+            return;
+        }
+        useCapture = useCapture || false;
+        if (el.removeEventListener) {
+            el.removeEventListener(name, fn, useCapture);
+        }
+    };
+    u.one = function (el, name, fn, useCapture) {
+        if (!u.isElement(el)) {
+            console.warn('$api.one Function need el param, el param must be DOM Element');
+            return;
+        }
+        useCapture = useCapture || false;
+        var that = this;
+        var cb = function () {
+            fn && fn();
+            that.rmEvt(el, name, cb, useCapture);
+        };
+        that.addEvt(el, name, cb, useCapture);
+    };
+    u.dom = function (el, selector) {
+        if (arguments.length === 1 && typeof arguments[0] == 'string') {
+            if (document.querySelector) {
+                return document.querySelector(arguments[0]);
+            }
+        } else if (arguments.length === 2) {
+            if (el.querySelector) {
+                return el.querySelector(selector);
+            }
+        }
+    };
+    u.domAll = function (el, selector) {
+        if (arguments.length === 1 && typeof arguments[0] == 'string') {
+            if (document.querySelectorAll) {
+                return document.querySelectorAll(arguments[0]);
+            }
+        } else if (arguments.length === 2) {
+            if (el.querySelectorAll) {
+                return el.querySelectorAll(selector);
+            }
+        }
+    };
+    u.byId = function (id) {
+        return document.getElementById(id);
+    };
+    u.first = function (el, selector) {
+        if (arguments.length === 1) {
+            if (!u.isElement(el)) {
+                console.warn('$summer.first Function need el param, el param must be DOM Element');
+                return;
+            }
+            return el.children[0];
+        }
+        if (arguments.length === 2) {
+            return this.dom(el, selector + ':first-child');
+        }
+    };
+    u.last = function (el, selector) {
+        if (arguments.length === 1) {
+            if (!u.isElement(el)) {
+                console.warn('$summer.last Function need el param, el param must be DOM Element');
+                return;
+            }
+            var children = el.children;
+            return children[children.length - 1];
+        }
+        if (arguments.length === 2) {
+            return this.dom(el, selector + ':last-child');
+        }
+    };
+    u.eq = function (el, index) {
+        return this.dom(el, ':nth-child(' + index + ')');
+    };
+    u.not = function (el, selector) {
+        return this.domAll(el, ':not(' + selector + ')');
+    };
+    u.prev = function (el) {
+        if (!u.isElement(el)) {
+            console.warn('$api.prev Function need el param, el param must be DOM Element');
+            return;
+        }
+        var node = el.previousSibling;
+        if (node.nodeType && node.nodeType === 3) {
+            node = node.previousSibling;
+            return node;
+        }
+    };
+    u.next = function (el) {
+        if (!u.isElement(el)) {
+            console.warn('$api.next Function need el param, el param must be DOM Element');
+            return;
+        }
+        var node = el.nextSibling;
+        if (node.nodeType && node.nodeType === 3) {
+            node = node.nextSibling;
+            return node;
+        }
+    };
+    u.closest = function (el, selector) {
+        if (!u.isElement(el)) {
+            console.warn('$api.closest Function need el param, el param must be DOM Element');
+            return;
+        }
+        var doms, targetDom;
+        var isSame = function (doms, el) {
+            var i = 0, len = doms.length;
+            for (i; i < len; i++) {
+                if (doms[i].isEqualNode(el)) {
+                    return doms[i];
+                }
+            }
+            return false;
+        };
+        var traversal = function (el, selector) {
+            doms = u.domAll(el.parentNode, selector);
+            targetDom = isSame(doms, el);
+            while (!targetDom) {
+                el = el.parentNode;
+                if (el !== null && el.nodeType == el.DOCUMENT_NODE) {
+                    return false;
+                }
+                traversal(el, selector);
+            }
+
+            return targetDom;
+        };
+
+        return traversal(el, selector);
+    };
+    u.contains = function (parent, el) {
+        var mark = false;
+        if (el === parent) {
+            mark = true;
+            return mark;
+        } else {
+            do {
+                el = el.parentNode;
+                if (el === parent) {
+                    mark = true;
+                    return mark;
+                }
+            } while (el === document.body || el === document.documentElement);
+
+            return mark;
+        }
+
+    };
+    u.remove = function (el) {
+        if (el && el.parentNode) {
+            el.parentNode.removeChild(el);
+        }
+    };
+    u.attr = function (el, name, value) {
+        if (!u.isElement(el)) {
+            console.warn('$api.attr Function need el param, el param must be DOM Element');
+            return;
+        }
+        if (arguments.length == 2) {
+            return el.getAttribute(name);
+        } else if (arguments.length == 3) {
+            el.setAttribute(name, value);
+            return el;
+        }
+    };
+    u.removeAttr = function (el, name) {
+        if (!u.isElement(el)) {
+            console.warn('$api.removeAttr Function need el param, el param must be DOM Element');
+            return;
+        }
+        if (arguments.length === 2) {
+            el.removeAttribute(name);
+        }
+    };
+    u.hasCls = function (el, cls) {
+        if (!u.isElement(el)) {
+            console.warn('$api.hasCls Function need el param, el param must be DOM Element');
+            return;
+        }
+        if (el.className.indexOf(cls) > -1) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+    u.addCls = function (el, cls) {
+        if (!u.isElement(el)) {
+            console.warn('$api.addCls Function need el param, el param must be DOM Element');
+            return;
+        }
+        if ('classList' in el) {
+            el.classList.add(cls);
+        } else {
+            var preCls = el.className;
+            var newCls = preCls + ' ' + cls;
+            el.className = newCls;
+        }
+        return el;
+    };
+    u.removeCls = function (el, cls) {
+        if (!u.isElement(el)) {
+            console.warn('$api.removeCls Function need el param, el param must be DOM Element');
+            return;
+        }
+        if ('classList' in el) {
+            el.classList.remove(cls);
+        } else {
+            var preCls = el.className;
+            var newCls = preCls.replace(cls, '');
+            el.className = newCls;
+        }
+        return el;
+    };
+    u.toggleCls = function (el, cls) {
+        if (!u.isElement(el)) {
+            console.warn('$api.toggleCls Function need el param, el param must be DOM Element');
+            return;
+        }
+        if ('classList' in el) {
+            el.classList.toggle(cls);
+        } else {
+            if (u.hasCls(el, cls)) {
+                u.addCls(el, cls);
+            } else {
+                u.removeCls(el, cls);
+            }
+        }
+        return el;
+    };
+    u.val = function (el, val) {
+        if (!u.isElement(el)) {
+            console.warn('$api.val Function need el param, el param must be DOM Element');
+            return;
+        }
+        if (arguments.length === 1) {
+            switch (el.tagName) {
+                case 'SELECT':
+                    var value = el.options[el.selectedIndex].value;
+                    return value;
+                case 'INPUT':
+                    return el.value;
+                case 'TEXTAREA':
+                    return el.value;
+            }
+        }
+        if (arguments.length === 2) {
+            switch (el.tagName) {
+                case 'SELECT':
+                    el.options[el.selectedIndex].value = val;
+                    return el;
+                case 'INPUT':
+                    el.value = val;
+                    return el;
+                case 'TEXTAREA':
+                    el.value = val;
+                    return el;
+            }
+        }
+
+    };
+    u.prepend = function (el, html) {
+        if (!u.isElement(el)) {
+            console.warn('$api.prepend Function need el param, el param must be DOM Element');
+            return;
+        }
+        el.insertAdjacentHTML('afterbegin', html);
+        return el;
+    };
+    u.append = function (el, html) {
+        if (!u.isElement(el)) {
+            console.warn('$api.append Function need el param, el param must be DOM Element');
+            return;
+        }
+        el.insertAdjacentHTML('beforeend', html);
+        return el;
+    };
+    u.before = function (el, html) {
+        if (!u.isElement(el)) {
+            console.warn('$api.before Function need el param, el param must be DOM Element');
+            return;
+        }
+        el.insertAdjacentHTML('beforebegin', html);
+        return el;
+    };
+    u.after = function (el, html) {
+        if (!u.isElement(el)) {
+            console.warn('$api.after Function need el param, el param must be DOM Element');
+            return;
+        }
+        el.insertAdjacentHTML('afterend', html);
+        return el;
+    };
+    u.html = function (el, html) {
+        if (!u.isElement(el)) {
+            console.warn('$api.html Function need el param, el param must be DOM Element');
+            return;
+        }
+        if (arguments.length === 1) {
+            return el.innerHTML;
+        } else if (arguments.length === 2) {
+            el.innerHTML = html;
+            return el;
+        }
+    };
+    u.text = function (el, txt) {
+        if (!u.isElement(el)) {
+            console.warn('$api.text Function need el param, el param must be DOM Element');
+            return;
+        }
+        if (arguments.length === 1) {
+            return el.textContent;
+        } else if (arguments.length === 2) {
+            el.textContent = txt;
+            return el;
+        }
+    };
+    u.offset = function (el) {
+        if (!u.isElement(el)) {
+            console.warn('$api.offset Function need el param, el param must be DOM Element');
+            return;
+        }
+        var sl, st;
+        if (document.documentElement) {
+            sl = document.documentElement.scrollLeft;
+            st = document.documentElement.scrollTop;
+        } else {
+            sl = document.body.scrollLeft;
+            st = document.body.scrollTop;
+        }
+        var rect = el.getBoundingClientRect();
+        return {
+            l: rect.left + sl,
+            t: rect.top + st,
+            w: el.offsetWidth,
+            h: el.offsetHeight
+        };
+    };
+    u.css = function (el, css) {
+        if (!u.isElement(el)) {
+            console.warn('$api.css Function need el param, el param must be DOM Element');
+            return;
+        }
+        if (typeof css == 'string' && css.indexOf(':') > 0) {
+            el.style && (el.style.cssText += ';' + css);
+        }
+    };
+    u.cssVal = function (el, prop) {
+        if (!u.isElement(el)) {
+            console.warn('$api.cssVal Function need el param, el param must be DOM Element');
+            return;
+        }
+        if (arguments.length === 2) {
+            var computedStyle = window.getComputedStyle(el, null);
+            return computedStyle.getPropertyValue(prop);
+        }
+    };
+    u.jsonToStr = function (json) {
+        if (typeof json === 'object') {
+            return JSON && JSON.stringify(json);
+        } else {
+            alert("$summer.jsonToStr's parameter is not a json, it's typeof is " + typeof json);
+        }
+    };
+    u.strToJson = function (str) {
+        if (typeof str === 'string') {
+            return JSON && JSON.parse(str);
+        } else {
+            alert("$summer.strToJson's parameter is not a string, it's typeof is " + typeof str);
+        }
+    };
+    //gct api
+    u.winWidth = function () {
+        return document.documentElement.offsetWidth || document.body.offsetWidth;
+    };
+    //gct api
+    u.winHeight = function () {
+        return document.documentElement.offsetHeight || document.body.offsetHeight;
+    };
+    /******************** HTML API END ********************/
+
+
+    /******************** Native API BEGIN ********************/
+        //20160810
+
+    u.fixStatusBar = function (el) {
+        if (!u.isElement(el)) {
+            alert('$summer.fixStatusBar Function need el param, el param must be DOM Element');
+            return;
+        }
+        // var strDM = api.systemType;
+        // if (strDM == 'ios') {
+        //     var strSV = api.systemVersion;
+        //     var numSV = parseInt(strSV,10);
+        //     var fullScreen = api.fullScreen;
+        //     var iOS7StatusBarAppearance = api.iOS7StatusBarAppearance;
+        //     if (numSV >= 7 && !fullScreen && iOS7StatusBarAppearance) {
+        //         el.style.paddingTop = '20px';
+        //     }
+        // }
+
+        var sysInfo = summer.getSysInfo();
+        var strST = sysInfo.systemType;
+        var strSV = sysInfo.systemVersion;
+        var fullScreen = sysInfo.fullScreen;
+        var statusBarAppearance = sysInfo.statusBarAppearance;
+        var statusBarHeight = sysInfo.statusBarHeight;
+        if ((strST == "ios" && fullScreen && statusBarAppearance == '1') || strST == "pc") {
+            el.style.paddingTop = '20px';
+            $(el).children().css("top", "20px");
+        } else if (strST == "android" && fullScreen && statusBarAppearance) {
+            el.style.paddingTop = statusBarHeight + 'px';
+            $(el).children().css("top", statusBarHeight + 'px');
+        }
+    };
+
+    u.post = function (/*url,data,fnSuc,dataType*/) {
+        // var argsToJson = parseArguments.apply(null, arguments);
+        // var json = {};
+        // var fnSuc = argsToJson.fnSuc;
+        // argsToJson.url && (json.url = argsToJson.url);
+        // argsToJson.data && (json.data = argsToJson.data);
+        // if(argsToJson.dataType){
+        //     var type = argsToJson.dataType.toLowerCase();
+        //     if (type == 'text'||type == 'json') {
+        //         json.dataType = type;
+        //     }
+        // }else{
+        //     json.dataType = 'json';
+        // }
+        // json.method = 'post';
+        // api.ajax(json,
+        //     function(ret,err){
+        //         if (ret) {
+        //             fnSuc && fnSuc(ret);
+        //         }
+        //     }
+        // );
+    };
+    u.get = function (/*url,fnSuc,dataType*/) {
+        // var argsToJson = parseArguments.apply(null, arguments);
+        // var json = {};
+        // var fnSuc = argsToJson.fnSuc;
+        // argsToJson.url && (json.url = argsToJson.url);
+        // //argsToJson.data && (json.data = argsToJson.data);
+        // if(argsToJson.dataType){
+        //     var type = argsToJson.dataType.toLowerCase();
+        //     if (type == 'text'||type == 'json') {
+        //         json.dataType = type;
+        //     }
+        // }else{
+        //     json.dataType = 'text';
+        // }
+        // json.method = 'get';
+        // api.ajax(json,
+        //     function(ret,err){
+        //         if (ret) {
+        //             fnSuc && fnSuc(ret);
+        //         }
+        //     }
+        // );
+    };
+
+    window.$summer = window.$summer || u;
+    window.$api = window.$summer;
+})(window);
 
 //summerBridge 3.0.0.20161031
 +function (w, s) {
@@ -3432,7 +4078,7 @@ var config = {
 
             strJson = strJson || '{}';
             try {
-                return summer.require('summer-plugin-service.XService').call(srvName, JSON.parse(strJson));
+                return summer.require('summer-plugin-service.XService').call(srvName, $summer.strToJson(strJson));
             } catch (e) {
                 if ($summer.__debug)
                     alert("Excp6.1: 异步调用summer-plugin-service.XService异常:" + e);
@@ -3576,14 +4222,36 @@ var config = {
             return s.callCordova('summer-plugin-frame.XFrame', 'setFrameGroupIndex', json, successFn, errFn);
         },
         openWin: function (json, successFn, errFn) {
-			if(!json["animation"]){
-        		json["animation"]={
-				    type:"push", 
-				    subType:"from_right", 
-				    duration:300 
-				};
-        	}
+            if(!json["animation"]){
+                json["animation"]={
+                    type:"push", 
+                    subType:"from_right", 
+                    duration:300 
+                };
+            }
             return s.callCordova('summer-plugin-frame.XFrame', 'openWin', json, successFn, errFn);
+        },
+        // ios下，退出登录，关闭其他页面
+        initializeWin: function (json, successFn, errFn) {
+            if ($summer.os == "ios") {
+                return s.callCordova('summer-plugin-frame.XFrame', 'initializeWin', json, successFn, errFn);
+            } else if ($summer.os == "android") {
+                if (json.id && json.url && json.toId) {
+                    summer.openWin({"id" : json.id, "url" : json.url, "isKeep" : false});
+                    summer.closeToWin({id : json.toId});
+                }
+            }
+        },
+        // ios下，重新挂载事件监听
+        addEventListener: function (json, successFn, errFn) {
+            if ($summer.os == "ios") {
+                return s.callCordova('summer-plugin-frame.XFrame', 'addEventListener', json, successFn, errFn);
+            } else if ($summer.os == "android") {
+                if (json.event && json.handler) {
+                    var handler = json.handler.replace(/\(|\)/g,'');
+                    document.addEventListener(json.event, eval("("+ handler +")"), false);
+                }
+            }
         },
         createWin: function (json, successFn, errFn) {
             return s.callCordova('summer-plugin-frame.XFrame', 'createWin', json, successFn, errFn);
@@ -3594,7 +4262,7 @@ var config = {
         showWin: function (json, successFn, errFn) {
             return s.callCordova('summer-plugin-frame.XFrame', 'showWin', json, successFn, errFn);
         },
-		setWinAttr: function (json, successFn, errFn) {
+        setWinAttr: function (json, successFn, errFn) {
             return s.callCordova('summer-plugin-frame.XFrame', 'setWinAttr', json, successFn, errFn);
         },
         closeWin: function (json, successFn, errFn) {
@@ -3682,6 +4350,9 @@ var config = {
         hideLaunch: function (json, successFn, errFn) {
             return s.callCordova('summer-plugin-frame.XFrame', 'removeStartPage', json, successFn, errFn);
         },
+        setTabbarIndex: function (json, successFn, errFn) {
+            return s.callCordova('summer-plugin-frame.XFrame', 'setTabbarItemSelect', json, successFn, errFn);
+        }
     };
 
 
@@ -3689,18 +4360,18 @@ var config = {
     s.openFrame = s.window.openFrame;
     s.closeFrame = s.window.closeFrame;
     s.openWin = s.window.openWin;
-	s.setWinAttr = s.window.setWinAttr;
+    s.initializeWin = s.window.initializeWin;
+    s.addEventListener = s.window.addEventListener;
+    s.setWinAttr = s.window.setWinAttr;
     s.createWin = s.window.createWin;
     s.getOpenWinTime = s.window.getOpenWinTime;
     s.showWin = s.window.showWin;
     s.closeWin = s.window.closeWin;
     s.closeToWin = s.window.closeToWin;
     s.getSysInfo = s.window.getSysInfo;
-
     s.winParam = s.window.winParam;
     s.frameParam = s.window.frameParam;
     s.setFrameAttr = s.window.setFrameAttr;
-
     s.setRefreshHeaderInfo = s.window.setRefreshHeaderInfo;
     s.refreshHeaderLoadDone = s.window.refreshHeaderLoadDone;
     s.refreshHeaderBegin = s.window.refreshHeaderBegin;
@@ -3712,6 +4383,7 @@ var config = {
     s.setFrameGroupAttr = s.window.setFrameGroupAttr;
     s.setFrameGroupIndex = s.window.setFrameGroupIndex;
     s.hideLaunch = s.window.hideLaunch;
+    s.setTabbarIndex = s.window.setTabbarIndex;
 
     s.showProgress = function (json) {
         if (!s.canrequire()) return;
@@ -3749,7 +4421,7 @@ var config = {
         var SERVER = json.SERVER;
         ft.upload(fileURL, encodeURI(SERVER), sFn, eFn, options);
     };
-	 //多图多文件批量上传 
+    //多图多文件批量上传 
     s.multiUpload= function(json,successFn,errFn){
         json["callback"]=successFn;
         json["error"]=errFn;
@@ -3920,11 +4592,6 @@ var config = {
         if (s.canrequire())
             return s.cordova.require('summer-plugin-frame.XService').sysInfo(json, successFn, errFn);
     };
-    s.addEventListener = function (json, successFn, errFn) {
-        if (s.canrequire())
-            return s.cordova.require('summer-plugin-frame.XFrame').addEventListener(json, successFn, errFn);
-    };
-
     //app upgrade API
     s.getAppVersion = function (json) {
         return s.callSync('XUpgrade.getAppVersion', json || {});
@@ -3960,7 +4627,7 @@ var config = {
         if ($summer.os == 'android') {
             return s.callCordova('summer-plugin-service.XService', 'getPermission', json, successFn, errFn);
         }
-    }
+    };
 }(window, summer);
 
 //summer native service v3.0.2016092011
@@ -3981,7 +4648,7 @@ var config = {
                 //Setp1: jsonArgs JSON Format
                 if (typeof jsonArgs == "string") {
                     try {
-                        var json =(jsonArgs);
+                        var json = $summer.strToJson(jsonArgs);
                         if (typeof json != "object") {
                             alert("调用服务[" + serviceType + "]时参数不是一个有效的json字符串。参数是" + jsonArgs);
                             return;
@@ -4003,14 +4670,14 @@ var config = {
                     s.UMService._callbackProxy(jsonArgs, "error");
 
                     try {
-                        serviceparams = JSON.parse(jsonArgs);
+                        serviceparams = $summer.jsonToStr(jsonArgs);
                         if (typeof serviceparams == "object") {
                             //转string后仍然为json，则报错，规定：调用服务的参数如果是字符串，必须是能转为json的字符串才行
                             alert("调用服务[" + serviceType + "]时传递的参数不能标准化为json字符串，请检查参数格式" + jsonArgs);
                             return;
                         }
                     } catch (e) {
-                        alert("Excp4: 校验jsonArgs是否可JSON.parse时异常:" + e);
+                        alert("Excp4: 校验jsonArgs是否可jsonToStr时异常:" + e);
                     }
 
                     if (isSync) {
@@ -4148,12 +4815,17 @@ var config = {
             //1、准备参数
             var args = {};
             if (arguments.length == 1 && typeof arguments[0] == "object") {
-                args["appid"] = ret.appid || '';
-                args["versionname"] = ret.version || '';
-                args["appversion"] = ret.version || '';
-                args["userid"] = ret.userid || '';
-                args["user"] = ret.userid || '';
-                args["pass"] = ret.pass || '';
+                for (var key in ret) {
+                    if (key == "version") {
+                        args["versionname"] = ret[key];
+                        args["appversion"] = ret[key];
+                    } else if (key == "userid") {
+                        args["userid"] = ret[key];
+                        args["user"] = ret[key];
+                    } else {
+                        args[key] = ret[key];
+                    }
+                }
             } else {
                 alert("setAppContext时,参数不合法");
                 return;
@@ -4236,9 +4908,19 @@ var config = {
                 alert("参数不是有效的JSONObject");
             }
         }
-    };//s.service end
-    //
-    s.callServiceEx = function (json) {
+    };
+    s.callServiceEx = function (json, successFn, errFn) {
+        if (!json.params) {
+            json.params = {}
+        }
+        if(successFn){
+            json.params["callback"] = successFn;
+            s.UMService._callbackProxy(json.params, "callback");
+        }
+        if(errFn){
+            json.params["error"] = errFn;
+            s.UMService._callbackProxy(json.params, "error");
+        }
         return s.callCordova('summer-plugin-service.XService', 'callSync', json, null, null);
     };
 
@@ -4289,7 +4971,7 @@ var config = {
         getDeviceInfo: function (jsonArgs) {
             var result = "";
             if (jsonArgs) {
-                result = s.callService("UMDevice.getDeviceInfo",JSON.parse(jsonArgs), false);
+                result = s.callService("UMDevice.getDeviceInfo", $summer.jsonToStr(jsonArgs), false);
             } else {
                 result = s.callService("UMDevice.getDeviceInfo", "", true);
             }
@@ -4298,7 +4980,7 @@ var config = {
         getScreenWidth: function () {
             if (!this._deviceInfo_Screen) {
                 var strd_info = this.getDeviceInfo();
-                var info = JSON.parse(strd_info);
+                var info = $summer.strToJson(strd_info);
                 this._deviceInfo_Screen = info.screen;
             }
             if (this._deviceInfo_Screen) {
@@ -4310,7 +4992,7 @@ var config = {
         getScreenHeight: function () {
             if (!this._deviceInfo_Screen) {
                 var strd_info = this.getDeviceInfo();
-                var info = JSON.parse(strd_info);
+                var info = $summer.strToJson(strd_info);
                 this._deviceInfo_Screen = info.screen;
             }
             if (this._deviceInfo_Screen) {
@@ -4322,7 +5004,7 @@ var config = {
         getScreenDensity: function () {
             if (!this._deviceInfo_Screen) {
                 var strd_info = this.getDeviceInfo();
-                var info = JSON.parse(strd_info);
+                var info = $summer.strToJson(strd_info);
                 this._deviceInfo_Screen = info.screen;
             }
             if (this._deviceInfo_Screen) {
@@ -4404,22 +5086,22 @@ var config = {
         compressImage: function (args) {
             return s.callService("UMFile.compressImg", args, false);//默认异步
         },
-		//涂鸦
-		doodle: function (args) {
-		return s.callService("UMFile.startDraw", args, false);//默认异步
+        //涂鸦
+        doodle: function (args) {
+            return s.callService("UMFile.startDraw", args, false);//默认异步
         },
-		saveImageToAlbum: function (args) {
+        saveImageToAlbum: function (args) {
             return s.callService("UMFile.saveImageToAlbum", args, false);//默认异步
         },
         exists: function (args) {
             return s.callService("UMFile.exists", args, true);
         },
-		//获取安卓手机app内文件路径
-		getStorageDirectory : function(args){
-			if($summer.os=="android"){
-				return s.callService("UMFile.getStorageDirectory", args, true);
-			}
-		},
+        //获取安卓手机app内文件路径
+        getStorageDirectory : function(args){
+            if($summer.os=="android"){
+                return s.callService("UMFile.getStorageDirectory", args, true);
+            }
+        },
         download: function (jsonArgs) {
             if ($summer.isEmpty(jsonArgs.url)) {
                 alert("参数url不能为空");
@@ -4579,7 +5261,7 @@ var config = {
         getNetworkInfo: function () {
             var result = s.callService("UMNetwork.getNetworkInfo", {}, true);//同步
             if (typeof result == "string") {
-                return JSON.parse(result);
+                return $summer.strToJson(result);
             } else {
                 return result;
             }
@@ -4743,11 +5425,11 @@ var config = {
     s.systemShare = s.UMDevice.systemShare;
     /*file*/
     s.removeFile = s.UMFile.remove;
-    s.compressImage = s.UMFile.compressImage
-	s.doodle = s.UMFile.doodle
-	s.saveImageToAlbum = s.UMFile.saveImageToAlbum
+    s.compressImage = s.UMFile.compressImage;
+    s.doodle = s.UMFile.doodle;
+    s.saveImageToAlbum = s.UMFile.saveImageToAlbum;
     s.exists = s.UMFile.exists;
-	s.getStorageDirectory=s.UMFile.getStorageDirectory
+    s.getStorageDirectory=s.UMFile.getStorageDirectory;
     s.download = s.UMFile.download;
     s.openFile = s.UMFile.open;
     s.getFileInfo = s.UMFile.getFileInfo;
@@ -4772,69 +5454,84 @@ var config = {
     s.netAvailable = s.UMNet.available;
     s.getNetworkInfo = s.UMNet.getNetworkInfo;
 
-    /*s.ajax = function (json, successFn, errFn) {
-        if (json.type.toLowerCase() == "get") {
-            return cordovaHTTP.get(json.url || "", json.param || {}, json.header || {}, successFn, errFn);
-        } else if (json.type.toLowerCase() == "post") {
-            return cordovaHTTP.post(json.url || "", json.param || {}, json.header || {}, successFn, errFn);
+    s.ajax = function(json, successFn, errFn){
+        if(json.type.toLowerCase() == "get"){
+            return summer.get(json.url || "", json.param || {}, json.header || {}, successFn, errFn);
+        }else if(json.type.toLowerCase() == "post"){
+            if($summer.os == "android" && $ && json.header && json.header["Content-Type"] == "application/json"){
+                var jsonAjax = {};
+                    jsonAjax["type"] = 'post';
+                    jsonAjax["url"] = json.url;
+                    if(json.param)
+                        jsonAjax["data"] = JSON.stringify(json.param);//后端得到json字符串
+                    if(json.header && json.header["Content-Type"])
+                        jsonAjax["contentType"] = json.header["Content-Type"];
+                    jsonAjax["processData"] = true;
+                    if(json.dataType)
+                        jsonAjax["dataType"] = json.dataType;//当服务器返回json,jquery返回的是json还是jsonstring
+                    if(json.header){
+                        jsonAjax["beforeSend"] =  function(request){
+                            for(var key in json.header){
+                                if(key == "Content-Type") continue;
+                                request.setRequestHeader(key, json.header[key]);
+                            }
+                        }
+                    }
+                    jsonAjax["success"] = function(data){
+                        if(successFn)
+                            successFn({data:data});
+                    };
+                    jsonAjax["error"] = function(data){
+                        if(errFn)
+                            errFn({data:data});
+                    };
+                
+                return $.ajax(jsonAjax);
+            }else{
+                return summer.post(json.url || "", json.param || {}, json.header || {}, successFn, errFn);
+            }
         }
-    };*/
-       s.ajax = function(json, successFn, errFn){
-		if(json.type.toLowerCase() == "get"){
-			return summer.get(json.url || "", json.param || {}, json.header || {}, successFn, errFn);
-		}else if(json.type.toLowerCase() == "post"){
-			if($summer.os == "android" && $ && json.header && json.header["Content-Type"] == "application/json"){
-				var jsonAjax = {};
-					jsonAjax["type"] = 'post';
-					jsonAjax["url"] = json.url;
-					if(json.param)
-						jsonAjax["data"] = JSON.stringify(json.param);//后端得到json字符串
-					if(json.header && json.header["Content-Type"])
-						jsonAjax["contentType"] = json.header["Content-Type"];
-					jsonAjax["processData"] = true;
-					if(json.dataType)
-						jsonAjax["dataType"] = json.dataType;//当服务器返回json,jquery返回的是json还是jsonstring
-					if(json.header){
-						jsonAjax["beforeSend"] =  function(request){
-							for(var key in json.header){
-								if(key == "Content-Type") continue;
-								request.setRequestHeader(key, json.header[key]);
-							}
-						}
-					}
-					jsonAjax["success"] = function(data){
-						if(successFn)
-							successFn({data:data});
-					};
-					jsonAjax["error"] = function(data){
-						if(errFn)
-							errFn({data:data});
-					};
-				
-				return $.ajax(jsonAjax);
-			}else{
-				return summer.post(json.url || "", json.param || {}, json.header || {}, successFn, errFn);
-			}
-		}
-	};
+    };
     s.get = function (url, param, header, successFn, errFn) {
-        return cordovaHTTP.get(url || "", param || {}, header || {}, successFn, errFn);
+        var startTime = new Date().getTime();
+        return cordovaHTTP.get(url || "", param || {}, header || {}, function(data){
+            var APMJSON = {
+                "type": "get",
+                "startTime": startTime,
+                "endTime": new Date().getTime(),
+                "url": url
+            };
+            var APMPARAMS = ["FeLoad", APMJSON];
+            cordova.require("summer-plugin-apm.SummerAPM").insertAction(APMPARAMS, function(args) {}, function(args) {})
+            successFn(data);
+        }, errFn);
     };
     s.post = function (url, param, header, successFn, errFn) {
-        return cordovaHTTP.post(url || "", param || {}, header || {}, successFn, errFn);
+        var startTime = new Date().getTime();
+        return cordovaHTTP.post(url || "", param || {}, header || {}, function(data){
+            var APMJSON = {
+                "type": "get",
+                "startTime": startTime,
+                "endTime": new Date().getTime(),
+                "url": url
+            };
+            var APMPARAMS = ["FeLoad", APMJSON];
+            cordova.require("summer-plugin-apm.SummerAPM").insertAction(APMPARAMS, function(args) {}, function(args) {})
+            successFn(data);
+        }, errFn);
     };
     s.getLocation = function (successFn, errFn) {
         return navigator.geolocation.getCurrentPosition(successFn, errFn);
     };
-	s.getNativeLocation = function (json,successFn, errFn) {
-		if(!json){return}
-		if($summer.os=="android"){
-			 return   s.cordova.require("cordova-plugin-amap.AMap").getLocation(json,successFn, errFn);
-		}else{
-			 json["callback"] = successFn;
-             json["error"] = errFn;
-			return s.callService("UMDevice.getLocation", json, false);
-		}
+    s.getNativeLocation = function (json,successFn, errFn) {
+        if(!json){return}
+        if($summer.os=="android"){
+            return s.cordova.require("cordova-plugin-amap.AMap").getLocation(json,successFn, errFn);
+        }else{
+            json["callback"] = successFn;
+            json["error"] = errFn;
+            return s.callService("UMDevice.getLocation", json, false);
+        }
         return navigator.geolocation.getCurrentPosition(successFn, errFn);
     };
 
@@ -4898,10 +5595,379 @@ var config = {
     w.$summer.__debug = false;//debug
 }(window, summer);
 
- 
+(function (global, factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        module.exports = global.document ?
+            factory(global, true) :
+            function (w) {
+                if (!w.document) {
+                    throw new Error("jQuery requires a window with a document");
+                }
+                return factory(w);
+            };
+    } else {
+        factory(global);
+    }
+}(window, function (window, noGlobal) {
+    var e = {};
+    window.emm = e;
+    return emm;
+}))
++ function (w, e, s) {
+    if (!e) {
+        e = {};
+        w.emm = e;
+    }
+    e.writeConfig = function (json, successFn, errFn) {
+        s.callService("UMEMMService.writeConfig", json, false);
 
+    };
+    e.autofind = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        return s.callService('UMEMMService.autofind', json, false);
+    };
+    e.registerDevice = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        return s.callService('UMEMMService.registerDevice', json, false);
+    };
+	e.openAdmin = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        return s.callService('UMMDMService.openAdmin', json, false);
+    };
+     e.openMDM = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        return s.callService('UMMDMService.openMDM', json, false);
+    };
+     e.closeMDM = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        return s.callService('UMMDMService.closeMDM', json, false);
+    };
+    e.login = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        return s.callService('UMEMMService.login', json, false);
+    };
+    e.logout = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        return s.callService('UMEMMService.logout', json, false);
+    };
+    e.getUserInfo = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        return s.callService('UMEMMService.getUserInfo', json, false);
+    };
+    e.modifyPassword = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        return s.callService('UMEMMService.modifyPassword', json, false);
+    };
+    e.modifyAvatar = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        return s.callService('UMEMMService.modifyAvatar', json, false);
+    };
+    e.getApps = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        return s.callService('UMEMMService.getApps', json, false);
+    };
+    e.getDocs = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        return s.callService('UMEMMService.getDocs', json, false);
+    };
+    e.startStrategy = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        return s.callService('UMEMMService.startStrategy', json, false);
+    };
+    e.stopStrategy = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        return s.callService('UMEMMService.stopStrategy', json, false);
+    };
+    e.feedback = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        return s.callService('UMEMMService.feedback', json, false);
+    };
+    e.getUserCommonApps = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        return s.callService('UMEMMService.getUserCommonApps', json, false);
+    };
+    e.getSystemApps = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        return s.callService('UMEMMService.getSystemApps', json, false);
+    };
+    e.getRecommendedApps = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        return s.callService('UMEMMService.getRecommendedApps', json, false);
+    };
+    e.updateUserApps = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
 
-/**
+        return s.callService('UMEMMService.updateUserApps', json, false);
+    };
+    e.upgradeWebApp = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        json["__keepCallback"] = true;
+        return s.callService('UMEMMService.upgradeWebApp', json, false);
+    };
+    e.installWebApp = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        json["__keepCallback"] = true;
+        return s.callService('UMEMMService.installWebApp', json, false);
+    };
+    e.openWebApp = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        return s.callService('UMEMMService.openWebApp', json, false);
+    };
+    e.removeWebApp = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        return s.callService('UMEMMService.removeWebApp', json, false);
+    };
+    e.upgradeSummerApp = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        json["__keepCallback"] = true;
+        return s.callService('UMEMMService.upgradeSummerApp', json, false);
+    };
+    e.upgradeSilentSignal = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        s.callService("UMEMMService.upgradeSilentSignal", json, false);
+    };
+    e.getLocalApps = function (json, successFn, errFn) {
+        json["callback"] = successFn;
+        json["error"] = errFn;
+        return s.callService('UMEMMService.getLocalApps', json, false);
+    };
+}(window, emm, summer);
+(function (global, factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        module.exports = global.document
+            ? factory(global, true)
+            : function (w) {
+                if (!w.document) {
+                    throw new Error("jQuery requires a window with a document");
+                }
+                return factory(w);
+            };
+    } else {
+        factory(global);
+    }
+}(window, function (window, noGlobal) {
+    var i = {};
+    window.im = i;
+    return im;
+})) + function (w, i, s) {
+    if (!i) {
+        i = {};
+        w.im = i;
+    }
+    i.login = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.login";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.logout = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.logout";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.createGroup = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.createGroup";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.getChatGroups = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.getChatGroups";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.chat = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.chat";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.registerMessageObserver = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.registerMessageObserver";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.getRecentContacters = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.getRecentContacters";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.fetchAccountMessages = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.fetchAccountMessages";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.openFaceToFace = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.openFaceToFace";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.deleteGroup = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.deleteGroup";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.getChatGroupMember = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.getChatGroupMember";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.groupKickMember = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.groupKickMember";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.forwardMessage = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.forwardMessage";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.groupAddMember = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.groupAddMember";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.updateUserInfo = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.updateUserInfo";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.fetchMessages = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.fetchMessages";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.setStickTop = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.setStickTop";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.setNoDisturb = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.setNoDisturb";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.deleteChat = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.deleteChat";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.deleteMessage = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.deleteMessage";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.joinGroup = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.joinGroup";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.setSilenceMode = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.setSilenceMode";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.isSilenceMode = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.isSilenceMode";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.searchByKey = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.searchByKey";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.updateMessageReaded = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.updateMessageReaded";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.chatSearch = function (json, successFn, errFn) {
+        var params = {
+            "params": json
+        };
+        params["method"] = "YYIM.chatSearch";
+        s.callServiceEx(params, successFn, errFn);
+    };
+    i.getSettings = function () {
+        return s.callSync('YYIM.getSettings',{});
+    };
+    i.updateSettings = function (json) {
+        s.callSync("YYIM.updateSettings", json);
+    };
+}(window, im, summer);/**
  * Created by zhujinyu on 2018/2/7.
  */
 //var BASE_URL = '/app';
