@@ -1,6 +1,10 @@
 ;//$(function () {
 summerready = function(){
     'use strict';
+    
+    //关闭启动图
+	summer.hideLaunch();
+    
     /*加载模板数据*/
     var params = [{loading: true}, {loading: true}];
     var lng,lat;

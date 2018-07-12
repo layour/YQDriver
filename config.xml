@@ -16,6 +16,7 @@
   <statusBarStyle>dark</statusBarStyle>  
   <fullScreen>false</fullScreen>  
   <windowSoftInputMode>stateHidden</windowSoftInputMode>  
+  <autoHideLaunch>false</autoHideLaunch>
   <import id="cordova-plugin-compat" type="web" ref="cordova"/>  
   <import id="cordova-plugin-http" type="web" ref="cordova"/>  
   <import id="cordova-plugin-camera" type="web" ref="cordova"/>  

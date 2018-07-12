@@ -4,6 +4,16 @@
 ;//$(function () {
 summerready = function(){
     'use strict';
+    
+    //自动登录
+    var token = getCookie("token");
+	if(token){
+	   	pageGo("index");
+	} else {
+	    //关闭启动图
+		summer.hideLaunch();
+	}
+    
     var $registerBtn = $("#register");//注册按钮
     var $mobile = $("#mobile");//手机号
     var $userName = $("#userName");//用户姓名
@@ -427,11 +437,7 @@ summerready = function(){
             ajaxRequest(params);
         }
     });
-    //自动登录
-    var token = getCookie("token");
-	   if(token){
-	   		pageGo("index");
-	   }
+    
     //注释自动登录
     // if(window.location.pathname=="/app/html/driver/login.html"){
     //     getAPPMethod(function () {
