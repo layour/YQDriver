@@ -6901,6 +6901,18 @@ $("input").blur(function () {
 });
 /*页面跳转*/
 function pageGo(url,params) {
+	if(url == 'index'){
+		//跳转到首页
+        summer.openWin({
+            type : 'tabBar',
+            id : 'indexPage',
+            addBackListener : "true",
+            url : 'index.html',
+            create : 'false',
+            isKeep : false
+        });
+		return;
+	}
     if(params){
         location.href=url+'.html'+params;
     }else{
