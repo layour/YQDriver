@@ -7155,7 +7155,9 @@ summerready = function(){
 	   	pageGo("index");
 	} else {
 	    //关闭启动图
-		summer.hideLaunch();
+		setTimeout(function() {
+			summer.hideLaunch();
+		}, 200);
 	}
     
     var $registerBtn = $("#register");//注册按钮
