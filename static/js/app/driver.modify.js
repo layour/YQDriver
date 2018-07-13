@@ -13987,7 +13987,7 @@ $(document).on('click', '.navigation', function () {
             })
         }
     },function () {
-        if(window.webkit){
+        /* if(window.webkit){
             window.webkit.messageHandlers.mapLocation.postMessage({
                 Lng: location_end[0],
                 lat: location_end[1]
@@ -13996,7 +13996,10 @@ $(document).on('click', '.navigation', function () {
             getLngLat(function (data) {
                 GoDestination(data, location_end);
             })
-        }
+        } */
+        getLngLat(function (data) {
+            GoDestination(data, location_end);
+        })
     },function () {
         getLngLat(function (data) {
             GoDestination(data, location_end);
@@ -15088,7 +15091,7 @@ function addressId(obj) {
     $.getJSON('../../static/js/lib/address.json',function (data) {
         cityJson = data;
         var val = obj.val();
-        for(var i in cityJson){
+        /* for(var i in cityJson){
             if (val.indexOf(cityJson[i].name) != -1) {
                 pid = cityJson[i].code;
                 pname = cityJson[i].name;
@@ -15110,7 +15113,30 @@ function addressId(obj) {
                     }
                 }
             }
-        }
+        } */
+        cityJson.forEach(function (e, i) {
+            if (val.indexOf(e.name) != -1) {
+                pid = e.code;
+                pname = e.name;
+                var second = e.children;
+                val = jiequ(val,pname);
+                console.log(val);
+                second.forEach(function (e, i) {
+                    if (val.indexOf(e.name) != -1) {
+                        sid = e.code;
+                        sname = e.name;
+                        var three = e.children;
+                        val = jiequ(val,sname);
+                        three.forEach(function (e, i) {
+                            if (val.indexOf(e.name) != -1) {
+                                qid = e.code;
+                                qname =  e.name;
+                            }
+                        });
+                    }
+                });
+            }
+        });
         obj.attr("data-provinceId",pid);
         obj.attr("data-provinceName",pname);
         obj.attr("data-cityId",sid);
