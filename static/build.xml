@@ -156,6 +156,7 @@
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
             <path path="js/common/aman.core.js"></path>
+            <path path="js/common/aman.ui.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/messagePublic.js"></path>
         </concat>
@@ -166,6 +167,7 @@
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
             <path path="js/common/aman.core.js"></path>
+            <path path="js/common/aman.ui.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/messagModify.js"></path>
         </concat>
@@ -511,6 +513,7 @@
             <path path="css/driver/index.css"></path>
         </concat>
         <concat destfile="css/app/driver.me.css" encoding="utf8">
+            <path path="css/aman.css"></path>
             <path path="css/lib/sui/sm.min.css"></path>
             <path path="css/driver/me.css"></path>
         </concat>
