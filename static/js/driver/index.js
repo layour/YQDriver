@@ -3,7 +3,58 @@ summerready = function(){
     'use strict';
     
     //关闭启动图
-	summer.hideLaunch();
+    summer.hideLaunch();
+    // 检测升级
+    chenckUpdate();
+    function chenckUpdate () {
+        var appVersion = JSON.parse(summer.getAppVersion()).versionCode;
+        var params = {
+            url:'/static/app/driver.json',
+            type: 'get',
+            callback:function (res) {
+                if ($summer.os == "android") {
+                    var NEW_VERSION = String(res.version);
+                    if (NEW_VERSION > appVersion) {
+                        UM.confirm({
+                            title: '检测到新版本，是否升级？',
+                            btnText: ["取消", "确定"],
+                            overlay: true,
+                            ok: function () {
+                                summer.upgradeApp({
+                                    url: res.updateUrl
+                                },function (ret) {
+                                    if (ret.state == 1 || ret == "OK") {
+                                        summer.toast({
+                                            msg : '升级成功'
+                                        });
+                                    }
+                                },function (err) {
+                                    summer.toast({
+                                        msg : '升级失败'
+                                    });
+                                })
+                            }
+                        });
+                    }
+                } else if ($summer.os == "ios") {
+                    var NEW_VERSION = String(res.version);
+                    if (NEW_VERSION > appVersion) {
+                        UM.confirm({
+                            title: '检测到新版本，是否升级？',
+                            btnText: ["取消", "确定"],
+                            overlay: true,
+                            ok: function () {
+                                summer.openWebView({
+                                    url : res.ios.updateUrl
+                                });
+                            }
+                        });
+                    }
+                }
+            }
+        }
+        ajaxRequest(params);
+    };
     
     /*加载模板数据*/
     var params = [{loading: true}, {loading: true}];

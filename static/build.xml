@@ -11,6 +11,7 @@
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
         	<path path="js/common/aman.core.js"></path>
+            <path path="js/common/aman.ui.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/index.js"></path>
         </concat>
@@ -262,8 +263,17 @@
             <path path="js/lib/sui/sm.min.js"></path>
             <path path="js/common/config.js"></path>
             <path path="js/common/aman.core.js"></path>
+            <path path="js/common/aman.ui.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/version.js"></path>
+        </concat>
+        <concat destfile="js/app/driver.about.js" encoding="utf8">
+            <path path="js/lib/zepto.js"></path>
+            <path path="js/lib/sui/sm.min.js"></path>
+            <path path="js/common/config.js"></path>
+            <path path="js/common/aman.core.js"></path>
+            <path path="js/common/base.js"></path>
+            <path path="js/driver/about.js"></path>
         </concat>
         <concat destfile="js/app/vender.loginRegister.js" encoding="utf8">
             <path path="js/lib/zepto.js"></path>
@@ -508,6 +518,7 @@
             <path path="js/lib/sui/sm.min.js"></path>
         </concat>
         <concat destfile="css/app/driver.index.css" encoding="utf8">
+            <path path="css/aman.css"></path>
             <path path="css/lib/sui/sm.min.css"></path>
             <path path="css/lib/sui/sm-extend.min.css"></path>
             <path path="css/driver/index.css"></path>
