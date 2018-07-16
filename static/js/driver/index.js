@@ -15,11 +15,8 @@ summerready = function(){
                 if ($summer.os == "android") {
                     var NEW_VERSION = String(res.version);
                     if (NEW_VERSION > appVersion) {
-                        UM.confirm({
-                            title: '检测到新版本，是否升级？',
-                            btnText: ["取消", "确定"],
-                            overlay: true,
-                            ok: function () {
+                        $.confirm('检测到新版本，是否升级？',
+                            function () {
                                 summer.upgradeApp({
                                     url: res.updateUrl
                                 },function (ret) {
@@ -33,22 +30,25 @@ summerready = function(){
                                         msg : '升级失败'
                                     });
                                 })
+                            },
+                            function () {
+                                console.log('取消');
                             }
-                        });
+                        );
                     }
                 } else if ($summer.os == "ios") {
                     var NEW_VERSION = String(res.version);
                     if (NEW_VERSION > appVersion) {
-                        UM.confirm({
-                            title: '检测到新版本，是否升级？',
-                            btnText: ["取消", "确定"],
-                            overlay: true,
-                            ok: function () {
+                        $.confirm('检测到新版本，是否升级？',
+                            function () {
                                 summer.openWebView({
                                     url : res.ios.updateUrl
                                 });
+                            },
+                            function () {
+                                console.log('取消');
                             }
-                        });
+                        );
                     }
                 }
             }
