@@ -12,7 +12,6 @@
   <versionBuild>1.0.0</versionBuild>  
   <versionName>1.0.0</versionName>  
   <orientation>unspecified</orientation>  
-  <permission id="android.permission.INTERNET"/>  
   <statusBarStyle>dark</statusBarStyle>  
   <fullScreen>false</fullScreen>  
   <windowSoftInputMode>stateHidden</windowSoftInputMode>  

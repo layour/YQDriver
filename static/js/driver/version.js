@@ -50,7 +50,7 @@ summerready = function(){
                     });
                 } else {
                     $.toast("当前应用已是最新版本", 3000);
-                    $('.current-version').text(NEW_VERSION);
+                    $('.current-version').text(appVersion);
                     $('.new-version').text(NEW_VERSION);
                     $('#dis').removeClass('dis-n');
                 }
