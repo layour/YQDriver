@@ -7453,3 +7453,25 @@ summerready = function(){
     })
     }
 //});
+function openWin(url,title){
+	  summer.openWin({
+        "id" : "outLink",
+        "url" :"html/driver/outLink.html",
+        "create" : "false",
+		"type" : "actionBar",
+        "actionBar" : {
+			title : title,
+			 titleColor: "#333333", //注意必须是6位数的颜色值。（3位数颜色值会不正常）
+		      backgroundColor: "#ffffff",
+		      bottomLineColor: "#ffffff",
+			leftItem : {
+				image : "static/img/back.png",
+				method : ""
+			}
+		},
+        "pageParam" : {
+            "outUrl":url
+        }
+    });
+
+}

@@ -43,6 +43,16 @@
             <path path="js/common/base.js"></path>
             <path path="js/driver/find.js"></path>
         </concat>
+    	<concat destfile="js/app/driver.outLink.js" encoding="utf8">
+    		<path path="js/lib/zepto.js"></path>
+	        <path path="js/lib/sui/sm.min.js"></path>
+	        <path path="js/lib/sui/sm-extend.min.js"></path>
+	        <path path="js/lib/mustache/mustache.min.js"></path>
+            <path path="js/common/config.js"></path>
+    		<path path="js/common/aman.core.js"></path>
+            <path path="js/common/base.js"></path>
+            <path path="js/driver/outLink.js"></path>
+    	</concat>
         <concat destfile="js/app/driver.findList.js" encoding="utf8">
             <path path="js/lib/zepto.js"></path>
             <path path="js/lib/sui/sm.min.js"></path>
@@ -541,6 +551,11 @@
             <path path="css/lib/sui/sm-extend.min.css"></path>
             <path path="css/driver/find.css"></path>
         </concat>
+    	 <concat destfile="css/app/driver.outLink.css" encoding="utf8">
+    	            <path path="css/lib/sui/sm.min.css"></path>
+    	            <path path="css/lib/sui/sm-extend.min.css"></path>
+    	            <path path="css/driver/outLink.css"></path>
+    	 </concat>
         <concat destfile="css/app/driver.loginRegister.css" encoding="utf8">
             <path path="css/aman.css"></path>
             <path path="css/lib/sui/sm.min.css"></path>
