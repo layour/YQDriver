@@ -1602,6 +1602,28 @@ if("undefined"==typeof o&&(o=!!(o||Math.abs(d-x.y)>Math.abs(c-x.x))),o)return vo
  * Author: gct@yonyou.com
  * Version: 0.3.0.20170419.1411
  */
+Array.prototype.indexOf = function (value) {
+    if (this == null) return -1;
+    var i = 0,
+        length = this.length;
+    for (; i < length; i++) {
+        if (this[i] === value) {
+            return i;
+        }
+    }
+    return -1;
+}
+String.prototype.indexOf = function (value) {
+    if (this == null) return -1;
+    var i = 0,
+        length = this.length;
+    for (; i < length; i++) {
+        if (this[i] === value) {
+            return i;
+        }
+    }
+    return -1;
+}
 (function (global, factory) {
     if (typeof module === "object" && typeof module.exports === "object") {
         module.exports = global.document ?
