@@ -12547,59 +12547,52 @@ function getLngLat(callback,error) {
 $(document).on('click', '.navigation', function () {
     var location_end = $(this).attr("data-end").split(",");
     var userName = $(this).attr("data-userName");
-    summer.openWin({
-        "id" : "mapLink",
-        "url" :"html/driver/mapLink.html",
-        "create" : "false",
-		"type" : "actionBar",
-        "actionBar" : {
-			title : "高德地图",
-			 titleColor: "#333333", //注意必须是6位数的颜色值。（3位数颜色值会不正常）
-		      backgroundColor: "#ffffff",
-		      bottomLineColor: "#ffffff",
-			leftItem : {
-				image : "static/img/back.png",
-				method : ""
-			}
-		},
-        "pageParam" : {
-            "location_end": location_end,
-            "userName": userName
-        }
-    });
-    // getAPPMethod(function () {
-    //     if(window.gasstation){
-    //        var  location = {
-    //            lng:location_end[0],
-    //            lat:location_end[1],
-    //            venderName:userName
-    //        }
-    //         var newLocation = JSON.stringify(location);
-    //         window.gasstation.mapLocation(newLocation);
-    //     }else{
-    //         getLngLat(function (data) {
-    //             GoDestination(data, location_end);
-    //         })
-    //     }
-    // },function () {
-    //     /* if(window.webkit){
-    //         window.webkit.messageHandlers.mapLocation.postMessage({
-    //             Lng: location_end[0],
-    //             lat: location_end[1]
-    //         });
-    //     }else {
-    //         getLngLat(function (data) {
-    //             GoDestination(data, location_end);
-    //         })
-    //     } */
-    //     getLngLat(function (data) {
-    //         GoDestination(data, location_end);
-    //     })
-    // },function () {
-    //     getLngLat(function (data) {
-    //         GoDestination(data, location_end);
-    //     })
-    // });
+    if($summer.os == "ios") {
+        summer.openWin({
+            "id" : "mapLink",
+            "url" :"html/driver/mapLink.html",
+            "create" : "false",
+    		"type" : "actionBar",
+            "actionBar" : {
+    			title : "导航",
+    			titleColor: "#3d4145", //注意必须是6位数的颜色值。（3位数颜色值会不正常）
+    		    backgroundColor: "#f7f7f8",
+    		    bottomLineColor: "#f7f7f8",
+    			leftItem : {
+    				image : "static/img/back.png",
+    				method : ""
+    			}
+    		},
+            "pageParam" : {
+                "location_end": location_end,
+                "userName": userName
+            }
+        });
+    } else {
+        getAPPMethod(function () {
+            if(window.gasstation){
+               var  location = {
+                   lng:location_end[0],
+                   lat:location_end[1],
+                   venderName:userName
+               }
+                var newLocation = JSON.stringify(location);
+                window.gasstation.mapLocation(newLocation);
+            }else{
+                getLngLat(function (data) {
+                    GoDestination(data, location_end);
+                })
+            }
+        },function () {
+            getLngLat(function (data) {
+                GoDestination(data, location_end);
+            })
+        },function () {
+            getLngLat(function (data) {
+                GoDestination(data, location_end);
+            })
+        });
+    }
 })
 /**地图导航*/
 function GoDestination(currentlocation, endLocation) {

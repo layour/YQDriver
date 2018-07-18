@@ -283,9 +283,9 @@ function openWin(url,title){
 		"type" : "actionBar",
         "actionBar" : {
 			title : title,
-			 titleColor: "#333333", //注意必须是6位数的颜色值。（3位数颜色值会不正常）
-		      backgroundColor: "#ffffff",
-		      bottomLineColor: "#ffffff",
+			titleColor: "#3d4145", //注意必须是6位数的颜色值。（3位数颜色值会不正常）
+		    backgroundColor: "#f7f7f8",
+		    bottomLineColor: "#f7f7f8",
 			leftItem : {
 				image : "static/img/back.png",
 				method : ""
