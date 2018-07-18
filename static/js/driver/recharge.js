@@ -52,7 +52,7 @@ summerready = function(){
     	$("#feeList .item").removeClass("active");
         ispayTmpl = 'shoushu';
     })
-    $(document).on("click","#submit",function () {
+    /*$(document).on("click","#submit",function () {
         var id = $("#feeList .item").attr("data-id");
         var amount = $("#amount").val();
         if (amount > 0) {
@@ -94,6 +94,58 @@ summerready = function(){
                     $("#payType").val(payTypes);
                     $("#token").val(getCookie("token"));
                     $("#payform").attr("action",BASE_URL+'/driverPayPage/webChat/payPage').submit();
+                }
+            })
+        }else{
+            $.toast( '请输入充值金额', 2000, 'custom-toast');
+        }
+    })*/
+    $(document).on("click","#submit",function () {
+        var id = $("#feeList .item").attr("data-id");
+        var amount = $("#amount").val();
+        if (amount > 0) {
+            if(type == 'alipay'){
+                var rechargeMethod = 2;
+            }else{
+                var rechargeMethod = 1;
+            }
+            var params = {
+                amount:amount,
+                rechargeMethod:rechargeMethod
+            }
+            if(ispayTmpl == 'tmpl'){
+                params.rechargeFeeTemplateId = id;
+            }
+            ajaxRequests("/driverRechargeDetail/driverSaveRecharge","post",{
+                body:params
+            },function (response) {
+                if(type == 'alipay'){
+                    // 支付宝支付
+                    var alipayParams = {
+                        "WIDout_trade_no": response.data.rechargeDetailId +"02",
+                        "WIDsubject": "充值",
+                        "WIDtotal_amount": amount,
+                        "WIDbody": "充值",
+                        "token": getCookie("token")
+                    }
+                    ajaxRequests("/driverPayPage/appAlipay/pay","post",{
+                        body: alipayParams
+                    },function (response) {
+                        cordova.require("cordova-plugin-summer-pay.summerpay").alipay({"orderInfo": body}, function(args) {
+                            // 打开支付成功页面
+                            summer.toast({
+                                msg: "支付成功"
+                            });
+                        }, function(err) {
+                            // 打开支付失败页面
+                            summer.toast({
+                                msg: "支付失败"
+                            });
+                        });
+                    })
+                } else {
+                    // 微信支付
+                    
                 }
             })
         }else{

@@ -20,5 +20,6 @@
   <import id="cordova-plugin-http" type="web" ref="cordova"/>  
   <import id="cordova-plugin-camera" type="web" ref="cordova"/>  
   <import id="cordova-plugin-summer-zbar" type="web" ref="cordova"/>  
-  <import id="cordova-plugin-file" type="web" ref="cordova"/> 
+  <import id="cordova-plugin-file" type="web" ref="cordova"/>
+  <import id="cordova-plugin-summer-pay" type="web" ref="cordova"/> 
 </application>

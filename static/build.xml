@@ -27,8 +27,6 @@
         <concat destfile="js/app/driver.mapLink.js" encoding="utf8">
             <path path="js/lib/zepto.js"></path>
             <path path="js/lib/sui/sm.min.js"></path>
-            <path path="js/lib/mustache/mustache.min.js"></path>
-            <path path="js/common/config.js"></path>
         	<path path="js/common/aman.core.js"></path>
             <path path="js/common/base.js"></path>
             <path path="js/driver/mapLink.js"></path>
