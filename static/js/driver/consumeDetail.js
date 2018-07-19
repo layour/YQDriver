@@ -91,14 +91,20 @@ summerready = function(){
                     onClick: function() {
                         pay_for_params.payType = 3;
                         submitPay(function(response){
+                        	/*var params = {
+	                            WIDout_trade_no:response.data.billDetailId + "01",
+	                            WIDsubject:filterGoodsTypes(pay_for_params.consumCategory)+pay_for_params.consumFee+"元",
+	                            total_amount:pay_for_params.consumFee,
+	                            WIDbody:'订单支付'
+	                        }*/
                         	var params = {
-        	                            WIDout_trade_no:response.data.billDetailId,
-        	                            WIDsubject:filterGoodsTypes(pay_for_params.consumCategory)+pay_for_params.consumFee+"元",
-        	                            total_amount:pay_for_params.consumFee,
-        	                            WIDbody:'订单支付'
-        	                        }
-        	                        alipayPay(params);
-                        	})
+	                            "widoutTradeNo":response.data.billDetailId + "01",
+	                            "widsubject":filterGoodsTypes(pay_for_params.consumCategory)+pay_for_params.consumFee+"元",
+	                            "widtotalAmount":pay_for_params.consumFee,
+	                            "widbody":'订单支付'
+	                        }
+	                        alipayPay(params);
+                    	})
                     }
                 },
                 {
@@ -107,13 +113,13 @@ summerready = function(){
                         pay_for_params.payType = 2;
                         submitPay(function(response){
                         	var params = {
-        	                            WIDout_trade_no:response.data.billDetailId,
-        	                            WIDsubject:filterGoodsTypes(pay_for_params.consumCategory)+pay_for_params.consumFee+"元",
-        	                            total_amount:pay_for_params.consumFee,
-        	                            WIDbody:'订单支付'
-        	                        }
-                        	 		wxPay(params);
-                        	})
+	                            WIDout_trade_no:response.data.billDetailId + "01",
+	                            WIDsubject:filterGoodsTypes(pay_for_params.consumCategory)+pay_for_params.consumFee+"元",
+	                            total_amount:pay_for_params.consumFee,
+	                            WIDbody:'订单支付'
+	                        }
+                	 		wxPay(params);
+                    	})
                     }
                 }
             ];
@@ -139,11 +145,17 @@ summerready = function(){
                     break;
                 case 3:
                     pay_for_params.payType = 3;
-                    var params = {
-                        WIDout_trade_no:getQueryString("id"),
+                    /*var params = {
+                        WIDout_trade_no:getQueryString("id") + "01",
                         WIDsubject:filterGoodsTypes(pay_for_params.consumCategory)+pay_for_params.consumFee+"元",
                         total_amount:pay_for_params.consumFee,
                         WIDbody:'订单支付'
+                    }*/
+                    var params = {
+                        "widoutTradeNo":getQueryString("id") + "01",
+                        "widsubject":filterGoodsTypes(pay_for_params.consumCategory)+pay_for_params.consumFee+"元",
+                        "widtotalAmount":pay_for_params.consumFee,
+                        "widbody":'订单支付'
                     }
                     alipayPay(params);
                     break;
@@ -174,12 +186,31 @@ summerready = function(){
         })
     }
     function alipayPay(params) {
-        $("#WIDout_trade_no").val(params.WIDout_trade_no+"01");
+        /*$("#WIDout_trade_no").val(params.WIDout_trade_no);
         $("#WIDsubject").val(params.WIDsubject);
         $("#WIDtotal_amount").val(params.total_amount);
         $("#WIDbody").val(params.WIDbody);
         $("#token").val(getCookie("token"));
-        $("#payform").attr("action",BASE_URL+'/driverPayPage/alipay/pay').submit();
+        $("#payform").attr("action",BASE_URL+'/driverPayPage/alipay/pay').submit();*/
+       
+        ajaxRequests("/driverPayPage/appAlipay/pay","post",{
+            body: params
+        },function (response) {
+            cordova.require("cordova-plugin-summer-pay.summerpay").alipay({
+                "orderInfo": response.body
+            }, function(args) {
+                // 打开支付成功页面
+                summer.toast({
+                    msg: "支付成功"
+                });
+                pageGo("consumerList");
+            }, function(err) {
+                // 打开支付失败页面
+                summer.toast({
+                    msg: "支付失败"
+                });
+            });
+        })
     }
     function wxPay(params) {
         var payTypes;
@@ -191,7 +222,7 @@ summerready = function(){
             payTypes ="Wap";
         })
         // setCookie("consume_wx_status",'wxPay');
-        $("#out_trade_no").val(params.WIDout_trade_no+"01");
+        $("#out_trade_no").val(params.WIDout_trade_no);
         $("#total_fee").val(params.total_amount);
         $("#body").val(params.WIDbody);
         $("#payType").val(payTypes);
