@@ -28,36 +28,53 @@ function addItem(tmpl, data_set, obj) {
 
 /*获取经纬度*/
 function getLngLat(callback,error) {
-    if(window.hasOwnProperty("AMap")){
-        var map = new AMap.Map("mapContainer", {
-            resizeEnable: true
-        });
-        map.plugin('AMap.Geolocation', function () {
-            geolocation = new AMap.Geolocation({
-                enableHighAccuracy: true,//是否使用高精度定位，默认:true
-                timeout: 10000,          //超过10秒后停止定位，默认：无穷大
-                buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
-            });
-          
-            geolocation.getCurrentPosition(function (status,result) {
-                if (status == "complete" ||status == "ok") {
-                    var str = [];
-                    str.push(result.position.lng);
-                    str.push(result.position.lat);
-                    str = GCJ2WGS(str);
-                    callback && callback(str);
-                }else{
-                    error && error();
-                    console.log("定位失败");
-                }
-            });
-        });
+    if($summer.os=="android"){
+        if(window.hasOwnProperty("AMap")){
+	        var map = new AMap.Map("mapContainer", {
+	            resizeEnable: true
+	        });
+	        map.plugin('AMap.Geolocation', function () {
+	            geolocation = new AMap.Geolocation({
+	                enableHighAccuracy: true,//是否使用高精度定位，默认:true
+	                timeout: 10000,          //超过10秒后停止定位，默认：无穷大
+	                buttonOffset: new AMap.Pixel(10, 20),//定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+	            });
+	          
+	            geolocation.getCurrentPosition(function (status,result) {
+	                if (status == "complete" ||status == "ok") {
+	                    var str = [];
+	                    str.push(result.position.lng);
+	                    str.push(result.position.lat);
+	                    str = GCJ2WGS(str);
+	                    callback && callback(str);
+	                }else{
+	                    error && error();
+	                    console.log("定位失败");
+	                }
+	            });
+	        });
+	    }else{
+	        var str = [];
+	        str.push('116.40717');
+	        str.push('39.90469');
+	        callback && callback(str);
+	    }
     }else{
-        var str = [];
-        str.push('116.40717');
-        str.push('39.90469');
-        callback && callback(str);
+    	summer.getNativeLocation({
+		    "single" : "true"
+		},function(result){
+			 var str = [];
+            str.push(result.longitude);
+            str.push(result.latitude);
+            str = GCJ2WGS(str);
+            callback && callback(str);
+		},function(args) {
+			 error && error();
+	         console.log("定位失败");
+
+		});
     }
+
 }
 /**跳转到地图*/
 $(document).on('click', '.navigation', function () {
@@ -711,9 +728,17 @@ function delCookie(name){
 //Aman工作室修改//
 function setCookie(name, value){
     summer.setStorage(name, value);
+    var loginTime = new Date().getTime();
+    summer.setStorage("loginTime",loginTime);
 }
 
 function getCookie(name){
+    var loginTime = summer.getStorage("loginTime");
+    if(loginTime){
+    	if((new Date().getTime()-parseInt(loginTime))>30*24*60*60*1000){
+    		summer.rmStorage(name);
+    	}
+    }
  	return summer.getStorage(name);
 }
 
