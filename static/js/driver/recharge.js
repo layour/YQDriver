@@ -122,16 +122,17 @@ summerready = function(){
                 if(type == 'alipay'){
                     // 支付宝支付
                     var alipayParams = {
-                        "WIDout_trade_no": response.data.rechargeDetailId +"02",
-                        "WIDsubject": "充值",
-                        "WIDtotal_amount": amount,
-                        "WIDbody": "充值",
-                        "token": getCookie("token")
+                        "widoutTradeNo": response.data.rechargeDetailId +"02",
+                        "widsubject": "充值",
+                        "widtotalAmount": "0.01",//amount,
+                        "widbody": "充值"
                     }
                     ajaxRequests("/driverPayPage/appAlipay/pay","post",{
                         body: alipayParams
                     },function (response) {
-                        cordova.require("cordova-plugin-summer-pay.summerpay").alipay({"orderInfo": body}, function(args) {
+                        cordova.require("cordova-plugin-summer-pay.summerpay").alipay({
+                            "orderInfo": response.body
+                        }, function(args) {
                             // 打开支付成功页面
                             summer.toast({
                                 msg: "支付成功"
