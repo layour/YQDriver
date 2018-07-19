@@ -6309,6 +6309,7 @@ summerready = function(){
                             summer.toast({
                                 msg: "支付成功"
                             });
+                            pageGo("me");
                         }, function(err) {
                             // 打开支付失败页面
                             summer.toast({

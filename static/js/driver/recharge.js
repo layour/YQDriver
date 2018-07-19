@@ -124,7 +124,7 @@ summerready = function(){
                     var alipayParams = {
                         "widoutTradeNo": response.data.rechargeDetailId +"02",
                         "widsubject": "充值",
-                        "widtotalAmount": "0.01",//amount,
+                        "widtotalAmount": amount,
                         "widbody": "充值"
                     }
                     ajaxRequests("/driverPayPage/appAlipay/pay","post",{
@@ -137,6 +137,7 @@ summerready = function(){
                             summer.toast({
                                 msg: "支付成功"
                             });
+                            pageGo("me");
                         }, function(err) {
                             // 打开支付失败页面
                             summer.toast({
