@@ -10712,28 +10712,6 @@ var config = {
  * Author: gct@yonyou.com
  * Version: 0.3.0.20170419.1411
  */
-Array.prototype.indexOf = function (value) {
-    if (this == null) return -1;
-    var i = 0,
-        length = this.length;
-    for (; i < length; i++) {
-        if (this[i] === value) {
-            return i;
-        }
-    }
-    return -1;
-}
-String.prototype.indexOf = function (value) {
-    if (this == null) return -1;
-    var i = 0,
-        length = this.length;
-    for (; i < length; i++) {
-        if (this[i] === value) {
-            return i;
-        }
-    }
-    return -1;
-}
 (function (global, factory) {
     if (typeof module === "object" && typeof module.exports === "object") {
         module.exports = global.document ?
@@ -10997,7 +10975,7 @@ String.prototype.indexOf = function (value) {
                             //alert(typeof ret)// --> object
 
                             if (typeof ret == "string") {
-                                ret = $summer.strToJson(ret);
+                                ret = JSON.parse(ret);
 
                             }
                             //alert($summer.jsonToStr(ret));
@@ -11136,7 +11114,7 @@ String.prototype.indexOf = function (value) {
 
             strJson = strJson || '{}';
             try {
-                return summer.require('summer-plugin-service.XService').call(srvName, $summer.strToJson(strJson));
+                return summer.require('summer-plugin-service.XService').call(srvName, JSON.parse(strJson));
             } catch (e) {
                 if ($summer.__debug)
                     alert("Excp6.1: 异步调用summer-plugin-service.XService异常:" + e);
@@ -11706,7 +11684,7 @@ String.prototype.indexOf = function (value) {
                 //Setp1: jsonArgs JSON Format
                 if (typeof jsonArgs == "string") {
                     try {
-                        var json = $summer.strToJson(jsonArgs);
+                        var json = JSON.parse(jsonArgs);
                         if (typeof json != "object") {
                             alert("调用服务[" + serviceType + "]时参数不是一个有效的json字符串。参数是" + jsonArgs);
                             return;
@@ -11919,7 +11897,7 @@ String.prototype.indexOf = function (value) {
                  };
                  for(key in args){
                  if(!sysParam.hasOwnProperty(key) && typeof args[key] == "string"){
-                 args[key] = $summer.strToJson(args[key]);
+                 args[key] = JSON.parse(args[key]);
                  }
                  }*/
                 return s.callService("UMService.callAction", args, false);
@@ -12038,7 +12016,7 @@ String.prototype.indexOf = function (value) {
         getScreenWidth: function () {
             if (!this._deviceInfo_Screen) {
                 var strd_info = this.getDeviceInfo();
-                var info = $summer.strToJson(strd_info);
+                var info = JSON.parse(strd_info);
                 this._deviceInfo_Screen = info.screen;
             }
             if (this._deviceInfo_Screen) {
@@ -12050,7 +12028,7 @@ String.prototype.indexOf = function (value) {
         getScreenHeight: function () {
             if (!this._deviceInfo_Screen) {
                 var strd_info = this.getDeviceInfo();
-                var info = $summer.strToJson(strd_info);
+                var info = JSON.parse(strd_info);
                 this._deviceInfo_Screen = info.screen;
             }
             if (this._deviceInfo_Screen) {
@@ -12062,7 +12040,7 @@ String.prototype.indexOf = function (value) {
         getScreenDensity: function () {
             if (!this._deviceInfo_Screen) {
                 var strd_info = this.getDeviceInfo();
-                var info = $summer.strToJson(strd_info);
+                var info = JSON.parse(strd_info);
                 this._deviceInfo_Screen = info.screen;
             }
             if (this._deviceInfo_Screen) {
@@ -12319,7 +12297,7 @@ String.prototype.indexOf = function (value) {
         getNetworkInfo: function () {
             var result = s.callService("UMNetwork.getNetworkInfo", {}, true);//同步
             if (typeof result == "string") {
-                return $summer.strToJson(result);
+                return JSON.parse(result);
             } else {
                 return result;
             }
