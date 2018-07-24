@@ -6695,7 +6695,7 @@ summerready = function(){
             var turnIntoAmount = setNumFixed_2(response.data.turnIntoAmount);
             $("#own_amount").html(ownAmount);
             $("#turn_into_amount").html(turnIntoAmount);
-            $("#total").html(ownAmount + turnIntoAmount);
+            $("#total").html(parseFloat(ownAmount)+parseFloat(turnIntoAmount));
         }
     })
     $(document).on("click",".pay-btn",function () {
