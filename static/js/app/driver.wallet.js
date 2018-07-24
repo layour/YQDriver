@@ -6676,13 +6676,17 @@ summerready = function(){
     $(".saoma").on("click", function () {
     	var params = {zxing : false};
 			ZBar.scan(params, function(args){
-			    summer.toast({
-			        msg: args,
-			        duration:"long"
-			    });
+				 if(args.indexOf('https')!=-1){
+                	 window.location.href=args.slice(args.lastIndexOf('/')+1,args.length); 
+                }else{
+	                 summer.toast({
+				         msg: args,
+				         duration:"long"
+	                });
+                }
 			}, function(args){
 			    summer.toast({
-			        msg: args,
+			        msg: "请扫描支付码",
 			         duration:"long"
 			    });
 			});
