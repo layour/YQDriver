@@ -3031,9 +3031,7 @@ var config = {
         { 'type':'4403',name:'深圳'}
         ]
 };/*
- * Summer JavaScript Library
- * Copyright (c) 2016 yonyou.com
- * Author: gct@yonyou.com
+ * Aman JavaScript Library
  * Version: 0.3.0.20170419.1411
  */
 (function (global, factory) {
@@ -3249,7 +3247,6 @@ var config = {
                         url = w.__$_CORDOVA_PATH + "/cordova/ios/cordova.js";
                     } else {
                         //alert("请在移动设备上访问");
-                        //url = path + "ios/cordova.js";
                     }
 
                 } else {
@@ -3296,13 +3293,11 @@ var config = {
 
                                 appParam: "",
                             };
-                            //alert(typeof ret)// --> object
 
                             if (typeof ret == "string") {
                                 ret = JSON.parse(ret);
 
                             }
-                            //alert($summer.jsonToStr(ret));
                             summer.pageParam = ret;//put the param in summer
                             if (summer.autoShowWin !== false) {
                                 summer.showWin({});
@@ -3414,15 +3409,6 @@ var config = {
 
 //summerBridge 3.0.0.20161031
 +function (w, s) {
-    /*  加上如下注释代码，ios无法再声明summerBridge
-     if(typeof summerBridge == "undefined"){
-     summerBridge = {
-     callSync:function(){
-     alert("请将执行的逻辑放入summerready中");
-     }
-     }
-     }
-    */
     //1、兼容Android
     if (w.adrinvoker) alert(w.adrinvoker);
     var adrinvoker = {};
@@ -3524,8 +3510,6 @@ var config = {
         if (this.canrequire() && !this.__debug) {
             var plug = this.cordova.require(cordovaPlugName);
             if (plug && plug[plugFnName]) {
-                //cordova.require("summer-plugin-service.XService").call("UMDevice.openCamara", {callback:"xxx()"}, successCallback, errorCallback)
-                // == cordova.exec(success, error, "XService", "call", ["UMDevice.openCamara", {callback:"xxx()"}]);
                 plug[plugFnName](json, successFn, errFn);
             } else {
                 alert("the cordova plug[" + cordovaPlugName + "]'s method[" + plugFnName + "] not implementation");
@@ -3626,7 +3610,6 @@ var config = {
             return s.callCordova('summer-plugin-frame.XFrame', 'setWinAttr', json, successFn, errFn);
         },
         closeWin: function (json, successFn, errFn) {
-            //support closeWin('xxx') and closeWin({id:'xxx'})
             if (typeof json == "string") {
                 json = {"id": json};
             } else if (typeof json == "undefined") {
@@ -3635,7 +3618,6 @@ var config = {
             return s.callCordova('summer-plugin-frame.XFrame', 'closeWin', json, successFn, errFn);
         },
         closeToWin: function (json, successFn, errFn) {
-            //support closeWin('xxx') and closeWin({id:'xxx'})
             if (typeof json == "string") {
                 json = {"id": json};
             } else if (typeof json == "undefined") {
@@ -3644,30 +3626,28 @@ var config = {
             return s.callCordova('summer-plugin-frame.XFrame', 'closeToWin', json, successFn, errFn);
         },
         getSysInfo: function (json, successFn, errFn) {
-            //support closeWin('xxx') and closeWin({id:'xxx'})
             if (typeof json == "string") {
                 json = alert("parameter json is required json object type, but is string type");
             }
             var param = json || {
-                    systemType: "android",//"ios"
-                    systemVersion: 7,// ios--> 7    android-->21
-                    statusBarAppearance: true,//false
-                    fullScreen: true,
-                    pageParam: {param0: 123, param1: "abc"},
-                    screenWidth: "",
-                    screenHeight: "",
-                    winId: "",
-                    winWidth: "",
-                    winHeight: "",
-                    frameId: "",
-                    frameWidth: "",
-                    frameHeight: "",
-                    statusBarHeight: "",
-                    statusBarStyle: "",
-                    appParam: "",
-                };
+                systemType: "android",//"ios"
+                systemVersion: 7,// ios--> 7    android-->21
+                statusBarAppearance: true,//false
+                fullScreen: true,
+                pageParam: {param0: 123, param1: "abc"},
+                screenWidth: "",
+                screenHeight: "",
+                winId: "",
+                winWidth: "",
+                winHeight: "",
+                frameId: "",
+                frameWidth: "",
+                frameHeight: "",
+                statusBarHeight: "",
+                statusBarStyle: "",
+                appParam: "",
+            };
             return JSON.parse(s.callSync('SummerDevice.getSysInfo', param));
-
         },
         setFrameAttr: function (json, successFn, errFn) {
             if (s.canrequire())
@@ -3792,11 +3772,6 @@ var config = {
     };
     //仅支持当前Win中的 各个frame和当前win之间的相互执行脚本
     s.execScript = function (json) {
-        /*{
-         winId:'xxx',
-         frameId:'yyy',
-         script:'do()'
-         }*/
         if (typeof json == "object") {
             //json.execFn = "summer.eval"
             if (json.script) {
@@ -3806,7 +3781,6 @@ var config = {
             }
         }
         if (s.canrequire()) {
-            //return s.require('summer-plugin-frame.XFrame').execScript(json,null,null);
             return this.callCordova('summer-plugin-frame.XFrame', 'execScript', json, null, null);
         }
     };
@@ -3879,7 +3853,6 @@ var config = {
     s.setStorage = function (key, value, storageType) {
         var v = value;
         if (storageType != "configure") {
-            //storageType == "configure" 是为原生提供的配置，callAction时原生读取，所以不能obj- str-处理
             if (typeof v == 'object') {
                 v = JSON.stringify(v);
                 v = 'obj-' + v;
@@ -3920,14 +3893,6 @@ var config = {
     s.getAppStorage = function (key) {
         return s.getStorage(key, "application");
     };
-    /*
-     s.writeConfig = function(key, value){
-     return s.setStorage(key, value, "configure");
-     };
-     s.readConfig = function(key){
-     return s.getStorage(key, "configure");
-     };
-     */
     s.setWindowStorage = function (key, value) {
         return s.setStorage(key, value, "window");
     };
@@ -3952,7 +3917,6 @@ var config = {
         if (s.canrequire())
             return s.cordova.require('summer-plugin-frame.XService').sysInfo(json, successFn, errFn);
     };
-    //app upgrade API
     s.getAppVersion = function (json) {
         return s.callSync('XUpgrade.getAppVersion', json || {});
     };
@@ -3989,7 +3953,7 @@ var config = {
         }
     };
 }(window, summer);
-//HTML DOM API by gct
+//HTML DOM API
 ;(function (window) {
     var u = window.$summer || {};
     u.isElement = function (obj) {
@@ -4265,7 +4229,6 @@ var config = {
                     return el;
             }
         }
-
     };
     u.prepend = function (el, html) {
         if (!u.isElement(el)) {
@@ -4389,23 +4352,11 @@ var config = {
 
 
     /******************** Native API BEGIN ********************/
-        //20160810
-
     u.fixStatusBar = function (el) {
         if (!u.isElement(el)) {
             alert('$summer.fixStatusBar Function need el param, el param must be DOM Element');
             return;
         }
-        // var strDM = api.systemType;
-        // if (strDM == 'ios') {
-        //     var strSV = api.systemVersion;
-        //     var numSV = parseInt(strSV,10);
-        //     var fullScreen = api.fullScreen;
-        //     var iOS7StatusBarAppearance = api.iOS7StatusBarAppearance;
-        //     if (numSV >= 7 && !fullScreen && iOS7StatusBarAppearance) {
-        //         el.style.paddingTop = '20px';
-        //     }
-        // }
 
         var sysInfo = summer.getSysInfo();
         var strST = sysInfo.systemType;
@@ -4420,53 +4371,6 @@ var config = {
             el.style.paddingTop = statusBarHeight + 'px';
             $(el).children().css("top", statusBarHeight + 'px');
         }
-    };
-
-    u.post = function (/*url,data,fnSuc,dataType*/) {
-        // var argsToJson = parseArguments.apply(null, arguments);
-        // var json = {};
-        // var fnSuc = argsToJson.fnSuc;
-        // argsToJson.url && (json.url = argsToJson.url);
-        // argsToJson.data && (json.data = argsToJson.data);
-        // if(argsToJson.dataType){
-        //     var type = argsToJson.dataType.toLowerCase();
-        //     if (type == 'text'||type == 'json') {
-        //         json.dataType = type;
-        //     }
-        // }else{
-        //     json.dataType = 'json';
-        // }
-        // json.method = 'post';
-        // api.ajax(json,
-        //     function(ret,err){
-        //         if (ret) {
-        //             fnSuc && fnSuc(ret);
-        //         }
-        //     }
-        // );
-    };
-    u.get = function (/*url,fnSuc,dataType*/) {
-        // var argsToJson = parseArguments.apply(null, arguments);
-        // var json = {};
-        // var fnSuc = argsToJson.fnSuc;
-        // argsToJson.url && (json.url = argsToJson.url);
-        // //argsToJson.data && (json.data = argsToJson.data);
-        // if(argsToJson.dataType){
-        //     var type = argsToJson.dataType.toLowerCase();
-        //     if (type == 'text'||type == 'json') {
-        //         json.dataType = type;
-        //     }
-        // }else{
-        //     json.dataType = 'text';
-        // }
-        // json.method = 'get';
-        // api.ajax(json,
-        //     function(ret,err){
-        //         if (ret) {
-        //             fnSuc && fnSuc(ret);
-        //         }
-        //     }
-        // );
     };
 
     window.$summer = window.$summer || u;
@@ -4557,7 +4461,6 @@ var config = {
                 if (!jsonArgs[callback_KEY])
                     return true;
                 if (typeof(jsonArgs[callback_KEY]) == "string") {
-                    //callback:"mycallback()", when callback is string, it must be a global function
                     var cbName = "";
                     try {
                         cbName = jsonArgs[callback_KEY].substring(0, jsonArgs[callback_KEY].indexOf("("));
@@ -4582,9 +4485,6 @@ var config = {
 
                     window[_cbProxy] = function (sender, args) {
                         try {
-                            //alert("typeof sender == " + typeof sender +"\n typeof args == " + + typeof args);
-                            //summer.alert(sender);
-                            //summer.alert(args);
                             if (args == undefined) {
                                 args = sender;//compatible
                             }
@@ -4593,16 +4493,11 @@ var config = {
                             alert(e);
                         } finally {
                             return;
-                            //alert("del before");
-                            //alert(typeof $__cbm[_cbProxy]);
-                            //alert(typeof window[_cbProxy]);
                             if (!jsonArgs["__keepCallback"]) {
                                 delete $__cbm[_cbProxy];
                                 delete window[_cbProxy];
                             }
                             alert("del after");
-                            //alert(typeof $__cbm[_cbProxy]);
-                            //alert(typeof window[_cbProxy]);
                         }
                     };
                     jsonArgs[callback_KEY] = _cbProxy + "()";
@@ -4615,9 +4510,6 @@ var config = {
             }
         },
         openHTTPS: function (json) {
-            /*	参数：
-             "ishttps" : "true"//是否开启https传输
-             */
             if ($summer.isJSONObject(json)) {
                 if (!json.ishttps) {
                     alert("请输入true或者false");
@@ -4679,34 +4571,7 @@ var config = {
         callAction: function (controllerName, actionName, params, isDataCollect, callbackActionID, contextmapping, customArgs) {
             if (arguments.length == 1 && typeof arguments[0] == "object") {
                 var args = {};
-                /*
-                 args  = {
-                 viewid:"xxx.xxx.xx",
-                 action:"methodName",
-                 params:{a:1,b:2},
-                 //isDataCollect:true,
-                 autoDataBinding:true,//请求回来会是否进行数据绑定
-                 contextmapping:"fieldPath",//将返回结果映射到指定的Context字段上，默认为替换整个Context
-                 callback:"actionid",
-                 error:"errorActionId"//失败回调的ActionId
-                 }
-                 */
                 args = controllerName;
-                /*var sysParam = {
-                 viewid:"xxx.xxx.xx",
-                 action:"methodName",
-                 //"params" : {a:1,b:2},//自定义参数
-                 //isDataCollect:true,
-                 autoDataBinding:true,//请求回来会是否进行数据绑定
-                 contextmapping:"fieldPath",//将返回结果映射到指定的Context字段上，默认为替换整个Context
-                 callback:"actionid",
-                 error:"errorActionId"//失败回调的ActionId
-                 };
-                 for(key in args){
-                 if(!sysParam.hasOwnProperty(key) && typeof args[key] == "string"){
-                 args[key] = JSON.parse(args[key]);
-                 }
-                 }*/
                 return s.callService("UMService.callAction", args, false);
             } else {
                 var args = {};
@@ -4721,15 +4586,10 @@ var config = {
                         args[key] = customArgs[key];
                     }
                 }
-                //$service.call("UMService.callAction","{callback:'myback', contextmapping:'data'，viewid:'"+controllerName+"',isDataCollect:'false',params:{demo:'demo'},action:'needPwd'}");
                 return s.callService("UMService.callAction", args);
             }
         },
         get: function (json) {
-            /*	参数：
-             url : 请求的ID
-             callback : 用于绑定webview的字段名
-             */
             if ($summer.isJSONObject(json)) {
                 if (!json.url) {
                     alert("请输入请求的url");
@@ -4767,9 +4627,6 @@ var config = {
         return s.callCordova('summer-plugin-service.XService', 'callSync', json, null, null);
     };
 
-    ///////////////////////////////////////////////////////////////////////////////////////////
-    //summser.UMDevie.writeFile()
-    //summer.camera.open() --->summer.openCamera()
     s.UMDevice = {
         _deviceInfo_Screen: null,
         getTimeZoneID: function () {
@@ -4794,9 +4651,6 @@ var config = {
             if (!$summer.isJSONObject(args)) {
                 alert("调用gotoMapView服务时，参数不是一个有效的JSONObject");
             }
-            /*
-             var args = {url:"http://www.baidu.com"};
-             */
             return s.callService("UMDevice.openWebView", args);
         },
         screenShot: function (args) {
@@ -4804,11 +4658,6 @@ var config = {
             return s.callService("UMDevice.screenshot", args, true);
         },
         notify: function (args) {
-            /*var params = {
-             "sendTime" : "2015-02-03 13:54:30",
-             "sendBody" : "您设置了消息提醒事件",
-             "icon": "app.png"
-             };*/
             s.callService("UMService.localNotification", args);
         },
         getDeviceInfo: function (jsonArgs) {
@@ -5040,15 +4889,6 @@ var config = {
         },
         openPhotoAlbum: function (json) {
             if (!json) return;
-            /*
-            var args = {};
-            if (json.bindfield)
-                args["bindfield"] = json["bindfield"];
-            if (json.callback)
-                args["callback"] = json["callback"];
-            if (json.compressionRatio)
-                args["compressionRatio"] = json["compressionRatio"];
-            */
             return s.callService("UMDevice.openPhotoAlbum", json, false);//异步调用服务
         }
     };
@@ -5065,8 +4905,6 @@ var config = {
             }
         },
         generateQRCode: function (jsonArgs) {
-            //twocode-size  //二维码大小，默认180*180，二维码为正方形
-            //twocode-content  //二维码内容，字符串
             if ($summer.isJSONObject(jsonArgs)) {
                 if (typeof jsonArgs["size"] != "undefined") {
                     jsonArgs["twocode-size"] = jsonArgs["size"];
@@ -5110,95 +4948,6 @@ var config = {
             }
         }
     };
-    s.UMSqlite = {
-        openDB: function (args) {
-            if ($summer.isJSONObject(args) && !$summer.isEmpty(args["db"])) {
-                return s.callService("UMSQLite.openDB", args, false);
-            } else {
-                alert("参数不是一个有效的JSONObject，请使用openDB({...})形式的API");
-            }
-        },
-        execSql: function (args) {
-            if ($summer.isJSONObject(args)) {
-                if ($summer.isEmpty(args["db"])) {
-                    alert("请输入参数db");
-                    return;
-                }
-                if ($summer.isEmpty(args["sql"])) {
-                    alert("请输入参数sql");
-                    return;
-                }
-                return s.callService("UMSQLite.execSql", args, true);
-            } else {
-                alert("参数不是一个有效的JSONObject，请使用execSql({...})形式的API");
-            }
-        },
-        //查询记录并分页返回
-        //参数db：必选 数据库名字
-        //参数sql：必选   查询sql语句
-        //参数startIndex： 可选  起始记录数索引 默认0
-        //参数endIndex：  可选  结束记录索引（含） 默认9
-        query: function (args) {
-            /*
-             $sqlite.query({
-             "db" : dbname,
-             "sql" : sql,
-             "startIndex" : 0,   //从第几条记录开始
-             "endIndex" : 9   //到第几条记录结束(含)
-             });
-             */
-            if ($summer.isJSONObject(args)) {
-                /*
-                 if($isEmpty(args["startIndex"])){
-                 args["startIndex"] = 0;
-                 }
-                 if($isEmpty(args["endIndex"])){
-                 args["endIndex"] = 9;
-                 }
-                 */
-                return s.callService("UMSQLite.query", args, true);
-            } else {
-                alert("参数不是一个有效的JSONObject，请使用query({...})形式的API");
-            }
-        },
-        //查询返回指定页面的数据
-        //参数db：必选 数据库名字
-        //参数sql：必选   查询sql语句
-        //参数pagesize：  可选  每页记录数 默认10
-        //参数pageIndex： 可选  指定页码 默认0
-        queryByPage: function (args) {
-            /*
-             $sqlite.queryByPage({
-             "db" : dbName,
-             "sql" : sql,
-             "pageSize" : pageSize,   //pageIndex=页号，从0开始
-             "pageIndex" : pageNo //pageSize=每页的记录数，从1开始
-             })
-             */
-            if ($summer.isJSONObject(args)) {
-                if ($summer.isEmpty(args["pageSize"])) {
-                    args["pageSize"] = 10;
-                }
-                if ($summer.isEmpty(args["pageIndex"])) {
-                    args["pageIndex"] = 0;
-                }
-                return s.callService("UMSQLite.queryByPage", args, true);
-            } else {
-                alert("参数不是一个有效的JSONObject，请使用queryByPage({...})形式的API");
-            }
-        },
-        exist: function (args) {
-            if ($summer.isJSONObject(args)) {
-                if ($summer.isEmpty(args["db"])) {
-                    alert("请输入参数db");
-                    return;
-                }
-                return s.callService("UMSQLite.exist", args, true);
-            } else {
-                alert("参数不是一个有效的JSONObject，请使用exist({...})形式的API");
-            }
-        }
-    };
     s.UMCache = {
         writeFile: function (filePath, content) {
             var args = {};
@@ -5218,10 +4967,6 @@ var config = {
             //苹果安卓统一返回处理结果
             if (strContent && strContent != "") {
                 try {
-                    /*  取出缓存的值不再强行转化为json，按照绝大多数平台通常的处理方式，缓存取出来后必要时需自行类型转化
-                     obj = $stringToJSON(strContent);
-                     return obj;
-                     */
                     return strContent;
                 } catch (e) {
                     return strContent;
