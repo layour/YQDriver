@@ -6686,7 +6686,8 @@ summerready = function(){
     
     //自动登录
     var token = getCookie("token");
-	if(token){
+    var cUrl = window.location.pathname; // register-added.html页面也加载了login.js
+	if(token && (cUrl.indexOf("login.html") != -1)){
 	   	pageGo("index");
 	} else {
 	    //关闭启动图
