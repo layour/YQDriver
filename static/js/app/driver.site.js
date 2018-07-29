@@ -14362,13 +14362,8 @@ summerready = function(){
         $("#token").val(getCookie("token"));
         $("#payform").attr("action",BASE_URL+'/driverPayPage/webChat/payPage').submit();*/
        
-        var wxpayParams = {
-            "outTradeNo": params.WIDout_trade_no,
-            "totalFee": params.total_amount,//amount,
-            "body": params.WIDbody
-        }
     	ajaxRequests("/driverPayPage/appWebChat/payPage","post",{
-            body: wxpayParams
+            body: params
         },function (response) {
         	if(response.status != "1"){
         		$.toast('生成定单失败', 2000, 'custom-toast');
