@@ -209,6 +209,7 @@ summerready = function(){
             }, function(err) {
                 // 打开支付失败页面
                 $.toast('支付失败', 2000, 'custom-toast');
+                pageGo("consumerList");
             });
         })
     }
@@ -258,6 +259,7 @@ summerready = function(){
 		        pageGo("consumerList");
 			}, function (reason) {
                 $.toast('失败:' + reason, 2000, 'custom-toast');
+                pageGo("consumerList");
 			});
 	    });
     }
