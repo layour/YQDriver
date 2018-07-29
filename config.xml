@@ -16,6 +16,7 @@
   <fullScreen>false</fullScreen>  
   <windowSoftInputMode>stateHidden</windowSoftInputMode>  
   <autoHideLaunch>false</autoHideLaunch>  
+  <openMDoctor>false</openMDoctor>
   <import id="cordova-plugin-wechat" type="web" ref="cordova">
       <parameter>WECHATAPPID=wx7ea07fac20d8361e</parameter>
   </import>
