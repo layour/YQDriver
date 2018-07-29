@@ -14341,6 +14341,7 @@ summerready = function(){
             }, function(err) {
                 // 打开支付失败页面
                 $.toast('支付失败', 2000, 'custom-toast');
+                pageGo("consumerList");
             });
         })
     }
@@ -14362,8 +14363,13 @@ summerready = function(){
         $("#token").val(getCookie("token"));
         $("#payform").attr("action",BASE_URL+'/driverPayPage/webChat/payPage').submit();*/
        
+       	var wxpayParams = {
+            "outTradeNo": params.widoutTradeNo,
+            "totalFee": params.widtotalAmount,
+            "body": params.widbody
+        }
     	ajaxRequests("/driverPayPage/appWebChat/payPage","post",{
-            body: params
+            body: wxpayParams
         },function (response) {
         	if(response.status != "1"){
         		$.toast('生成定单失败', 2000, 'custom-toast');
@@ -14386,6 +14392,7 @@ summerready = function(){
 		        pageGo("consumerList");
 			}, function (reason) {
                 $.toast('失败:' + reason, 2000, 'custom-toast');
+                pageGo("consumerList");
 			});
 	    });
     }
