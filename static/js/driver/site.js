@@ -222,6 +222,10 @@ summerready = function(){
         ajaxRequests("/driverPayPage/appAlipay/pay","post",{
             body: params
         },function (response) {
+        	if(response.status == "1"){
+        		$.toast('生成定单失败', 2000, 'custom-toast');
+        		return;
+        	}
             cordova.require("cordova-plugin-summer-pay.summerpay").alipay({
                 "orderInfo": response.body
             }, function(args) {
@@ -240,7 +244,7 @@ summerready = function(){
     }
     
     function wxPay(params) {
-    	var payTypes;
+    	/*var payTypes;
     	getAPPMethod(function(){
     		payTypes ="Android";
     	},function(){
@@ -254,7 +258,39 @@ summerready = function(){
         $("#body").val(params.WIDbody);
         $("#payType").val(payTypes);
         $("#token").val(getCookie("token"));
-        $("#payform").attr("action",BASE_URL+'/driverPayPage/webChat/payPage').submit();
+        $("#payform").attr("action",BASE_URL+'/driverPayPage/webChat/payPage').submit();*/
+       
+        var wxpayParams = {
+            "outTradeNo": params.WIDout_trade_no,
+            "totalFee": params.total_amount,//amount,
+            "body": params.WIDbody
+        }
+    	ajaxRequests("/driverPayPage/appWebChat/payPage","post",{
+            body: wxpayParams
+        },function (response) {
+        	if(response.status != "1"){
+        		$.toast('生成定单失败', 2000, 'custom-toast');
+        		return;
+        	}
+        	if(response.contentWx.return_code != "SUCCESS"){
+        		$.toast('失败:' + response.contentWx.return_msg, 2000, 'custom-toast');
+        		return;
+        	}
+	        var totalData = response.content;
+			var params = {
+			    "partnerid": totalData.partnerid, // merchant id
+			    "prepayid": totalData.prepayid, // prepay id
+			    "noncestr": totalData.noncestr, // nonce
+			    "timestamp": totalData.timestamp, // timestamp
+			    "sign": totalData.sign, // signed string
+			};
+			Wechat.sendPaymentRequest(params, function (arg) {
+		        $.toast('支付成功', 2000, 'custom-toast');
+		        pageGo("consumerList");
+			}, function (reason) {
+                $.toast('失败:' + reason, 2000, 'custom-toast');
+			});
+	    });
     }
     // var site_wx_status = getCookie("site_wx_status");
     // if(site_wx_status&&site_wx_status=="wxPay"){

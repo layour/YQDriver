@@ -6677,7 +6677,7 @@ summerready = function(){
                  var messageStr = JSON.stringify(str);
         })
     };
-    appAutoLogin();
+    //appAutoLogin();
    }
 //});
 
