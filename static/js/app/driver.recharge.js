@@ -5038,8 +5038,10 @@ var config = {
  * Created by zhujinyu on 2018/2/7.
  */
 //var BASE_URL = '/app';
-//Aman工作室修改//
-var BASE_URL = 'http://118.190.152.119/app';
+//测试环境
+//var BASE_URL = 'http://118.190.152.119/app';
+//正式环境
+var BASE_URL = 'https://m.zhongxinnengyuan.cn/app';
 
 /**渲染模板*/
 function getRenderTmpl(tmpl, data_set) {
@@ -6409,10 +6411,13 @@ function rechargeStatus(status) {
     switch (status){
         case 0:
             status_txt = "充值审核中";
+            break;
         case 1:
             status_txt = "充值已完成";
+            break;
         case 2:
             status_txt = "充值失败";
+            break;
     }
     return status_txt;
 }
@@ -6555,7 +6560,7 @@ summerready = function(){
                     ajaxRequests("/driverPayPage/appAlipay/pay","post",{
                         body: alipayParams
                     },function (response) {
-                    	if(response.status == "1"){
+                    	if(response.status != "1"){
                     		$.toast('生成定单失败', 2000, 'custom-toast');
                     		return;
                     	}
@@ -6563,15 +6568,11 @@ summerready = function(){
                             "orderInfo": response.body
                         }, function(args) {
                             // 打开支付成功页面
-                            summer.toast({
-                                msg: "支付成功"
-                            });
+                            $.toast('支付成功', 2000, 'custom-toast');
                             pageGo("rechargeList");
                         }, function(err) {
                             // 打开支付失败页面
-                            summer.toast({
-                                msg: "支付失败"
-                            });
+                            $.toast('支付失败', 2000, 'custom-toast');
                         });
                     })
                 } else {
@@ -6602,7 +6603,7 @@ summerready = function(){
 						};
 						Wechat.sendPaymentRequest(params, function (arg) {
 					        $.toast('支付成功', 2000, 'custom-toast');
-					        pageGo("consumerList");
+					        pageGo("rechargeList");
 						}, function (reason) {
                             $.toast('失败:' + reason, 2000, 'custom-toast');
 						});
