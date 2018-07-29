@@ -204,15 +204,11 @@ summerready = function(){
                 "orderInfo": response.body
             }, function(args) {
                 // 打开支付成功页面
-                summer.toast({
-                    msg: "支付成功"
-                });
+                $.toast('支付成功', 2000, 'custom-toast');
                 pageGo("consumerList");
             }, function(err) {
                 // 打开支付失败页面
-                summer.toast({
-                    msg: "支付失败"
-                });
+                $.toast('支付失败', 2000, 'custom-toast');
             });
         })
     }

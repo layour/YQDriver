@@ -1373,10 +1373,13 @@ function rechargeStatus(status) {
     switch (status){
         case 0:
             status_txt = "充值审核中";
+            break;
         case 1:
             status_txt = "充值已完成";
+            break;
         case 2:
             status_txt = "充值失败";
+            break;
     }
     return status_txt;
 }
