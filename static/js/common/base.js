@@ -2,8 +2,10 @@
  * Created by zhujinyu on 2018/2/7.
  */
 //var BASE_URL = '/app';
-//Aman工作室修改//
-var BASE_URL = 'http://118.190.152.119/app';
+//测试环境
+//var BASE_URL = 'http://118.190.152.119/app';
+//正式环境
+var BASE_URL = 'https://m.zhongxinnengyuan.cn/app';
 
 /**渲染模板*/
 function getRenderTmpl(tmpl, data_set) {
