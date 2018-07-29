@@ -130,7 +130,7 @@ summerready = function(){
                     ajaxRequests("/driverPayPage/appAlipay/pay","post",{
                         body: alipayParams
                     },function (response) {
-                    	if(response.status == "1"){
+                    	if(response.status != "1"){
                     		$.toast('生成定单失败', 2000, 'custom-toast');
                     		return;
                     	}
