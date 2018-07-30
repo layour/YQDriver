@@ -130,24 +130,56 @@ summerready = function(){
                     ajaxRequests("/driverPayPage/appAlipay/pay","post",{
                         body: alipayParams
                     },function (response) {
+                    	if(response.status != "1"){
+                    		$.toast('生成定单失败', 2000, 'custom-toast');
+                    		return;
+                    	}
                         cordova.require("cordova-plugin-summer-pay.summerpay").alipay({
                             "orderInfo": response.body
                         }, function(args) {
                             // 打开支付成功页面
-                            summer.toast({
-                                msg: "支付成功"
-                            });
+                            $.toast('支付成功', 2000, 'custom-toast');
                             pageGo("rechargeList");
                         }, function(err) {
                             // 打开支付失败页面
-                            summer.toast({
-                                msg: "支付失败"
-                            });
+                            $.toast('支付失败', 2000, 'custom-toast');
+                            pageGo("rechargeList");
                         });
                     })
                 } else {
                     // 微信支付
-                    
+                    var wxpayParams = {
+                        "outTradeNo": response.data.rechargeDetailId +"02",
+                        "totalFee": amount,
+                        "body": "充值"
+                    }
+                	ajaxRequests("/driverPayPage/appWebChat/payPage","post",{
+                        body: wxpayParams
+                    },function (response) {
+                    	if(response.status != "1"){
+                    		$.toast('生成定单失败', 2000, 'custom-toast');
+                    		return;
+                    	}
+                    	if(response.contentWx.return_code != "SUCCESS"){
+                    		$.toast('失败:' + response.contentWx.return_msg, 2000, 'custom-toast');
+                    		return;
+                    	}
+				        var totalData = response.content;
+						var params = {
+						    "partnerid": totalData.partnerid, // merchant id
+						    "prepayid": totalData.prepayid, // prepay id
+						    "noncestr": totalData.noncestr, // nonce
+						    "timestamp": totalData.timestamp, // timestamp
+						    "sign": totalData.sign, // signed string
+						};
+						Wechat.sendPaymentRequest(params, function (arg) {
+					        $.toast('支付成功', 2000, 'custom-toast');
+					        pageGo("rechargeList");
+						}, function (reason) {
+                            $.toast('失败:' + reason, 2000, 'custom-toast');
+                            pageGo("rechargeList");
+						});
+				    });
                 }
             })
         }else{
