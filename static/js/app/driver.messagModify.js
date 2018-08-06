@@ -7301,7 +7301,7 @@ Device/OS Detection
 /* ===============================================================================
 ************   Tabs   ************
 =============================================================================== */
-+function ($) {
+/* +function ($) {
     "use strict";
     $.initFixedTab = function(){
         var $fixedTab = $('.fixed-tab');
@@ -7383,7 +7383,7 @@ Device/OS Detection
 
 
 
-}(Zepto);
+}(Zepto); */
 
 + function($) {
     "use strict";

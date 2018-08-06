@@ -6,7 +6,7 @@
     <target name="build">
         <concat destfile="js/app/driver.index.js" encoding="utf8">
             <path path="js/lib/zepto.js"></path>
-            <path path="js/lib/sui/sm.min.js"></path>
+            <path path="js/lib/sui/sm.js"></path>
             <path path="js/lib/sui/sm-extend.min.js"></path>
             <path path="js/lib/mustache/mustache.min.js"></path>
             <path path="js/common/config.js"></path>
