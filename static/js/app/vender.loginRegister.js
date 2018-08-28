@@ -6433,6 +6433,18 @@ function setBanner(type,callback) {
 ;//$(function () {
 summerready = function(){
     'use strict';
+    
+       //自动登录
+    var token = getCookie("token");
+    var cUrl = window.location.pathname; // register-added.html页面也加载了login.js
+	if(token && (cUrl.indexOf("login.html") != -1)){
+	   	pageGo("index");
+	} else {
+	    //关闭启动图
+		setTimeout(function() {
+			summer.hideLaunch();
+		}, 200);
+	}
     var $loginName = $("#loginName");//登录名
     var $loginBtn = $("#login");//登录按钮
     var $userName = $("#userName");//商家名称
@@ -6840,7 +6852,8 @@ summerready = function(){
                             "companyType": response.data.companyType
                         }
                         var messageStr = JSON.stringify(message);
-                        getAPPMethod(function () {
+                        setCookie("messageStr",messageStr);
+                       /* getAPPMethod(function () {
                             if(window.gasstation){
                                 window.gasstation.saveCookie(messageStr);
                             }
@@ -6848,7 +6861,7 @@ summerready = function(){
                             if(window.webkit){
                                 window.webkit.messageHandlers.saveCookie.postMessage(messageStr);
                             }
-                        });
+                        });*/
                         pageGo("index");
                     }else{
                         $.alert(response.retMsg||'登录失败');
@@ -6896,7 +6909,8 @@ summerready = function(){
     $(document).on('click', '.upload', function () {
         $(this).parent(".item-box").addClass("active").siblings(".item-box").removeClass("active");
         var type  = $(this).attr("data-type");
-        getAPPMethod(function () {
+        var $this = $(this);
+        /* getAPPMethod(function () {
             if(window.gasstation){
                 window.gasstation.getPhoto(type);
             }else{
@@ -6908,7 +6922,63 @@ summerready = function(){
             }else{
                 $.alert("暂不支持图片上传");
             }
-        })
+        }) */
+        UM.actionsheet({
+            title : '',
+            items : ['拍照', '从相册中选择'],
+            callbacks : [camera, openPhotoAlbum]
+        });
+        function camera() {
+            summer.openCamera({
+                compressionRatio : 0.5,
+                callback : function(ret) {
+                    var imgPath = ret.compressImgPath;
+                    upload(imgPath);
+                }
+            });
+        }
+        function openPhotoAlbum() {
+            summer.openPhotoAlbum({
+                compressionRatio : 0.5,
+                callback : function(ret) {
+                    var imgPath = ret.compressImgPath;
+                    upload(imgPath);
+                }
+            });
+        }
+        // 把图片流上传用户中心
+        function upload(path) {
+            summer.showProgress();
+            var fileArray = [];
+            var item = {
+                fileURL : path,
+                type : "image/jpeg",
+                name : "file" 
+            };
+            fileArray.push(item);
+            summer.multiUpload({
+                fileArray : fileArray,
+                params : {},
+                SERVER : BASE_URL + "/common/upload/uploadFile"
+            }, function(ret) {
+                summer.hideProgress();
+                summer.toast({
+                    "msg" : "上传成功"
+                });
+                var photoPath = ret.data;
+                $this.parent().css({
+                    'background-image': 'url('+ BASE_URL + photoPath +')',
+                    'background-position': 'center',
+                    'background-size': '100% 100%'
+                });
+                $("#"+ type).val(photoPath);
+            }, function(err) {
+                summer.hideProgress();
+                summer.toast({
+                    "msg" : "上传失败"
+                });
+            });
+        }
     })
     var reg = /register/;
     if(reg.test(window.location.pathname)){
