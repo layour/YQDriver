@@ -122,9 +122,12 @@
                 <div class="flex-box-1">
                     {{#venderResourceList}}
                     <div class="flex-box">
-                        <div class="price">{{usedUnitFee}}</div>
+                        <div class="price">{{platformUnitFee}}</div>
                         <div><span class="mr4">豆/L</span> <span>{{resourceGrade}}</span></div>
                         <div style="width:0.8rem;"></div>
+                    </div>
+                    <div class="flex-box">
+                         <div><span style="font-size:.5rem;color: #999;text-decoration:line-through">{{usedUnitFee}}</span>   </div>
                     </div>
                     {{/venderResourceList}}
                 </div>

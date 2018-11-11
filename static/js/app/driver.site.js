@@ -14147,10 +14147,10 @@ summerready = function(){
             var option = '';
             for (var i = 0; i < venderResourceList.length; i++) {
                 var resourceGrade = venderResourceList[i].resourceGrade;
-                option += '<option value="' + venderResourceList[i].id + '" data-unit="' + venderResourceList[i].usedUnitFee + '">' + filterOilAndGasType(resourceGrade) + '</option>';
+                option += '<option value="' + venderResourceList[i].id + '" data-unit="' + venderResourceList[i].platformUnitFee + '">' + filterOilAndGasType(resourceGrade) + '</option>';
             }
             $venderResourceId.html(option);
-            $price.html(venderResourceList[0].usedUnitFee);
+            $price.html(venderResourceList[0].platformUnitFee);
             $(".content").removeClass("dis-n");
             $.hidePreloader();
         } else {

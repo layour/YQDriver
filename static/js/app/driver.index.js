@@ -14250,6 +14250,7 @@ summerready = function(){
                             datas[i].isHaveVenderResourceList = true;
                             for (var j = 0; j < datas[i].venderResourceList.length; j++) {
                                 datas[i].venderResourceList[j].usedUnitFee = setNumFixed_2(datas[i].venderResourceList[j].usedUnitFee);
+                                datas[i].venderResourceList[j].platformUnitFee = setNumFixed_2(datas[i].venderResourceList[j].platformUnitFee);
                             }
                         }else{
                             datas[i].isHaveVenderResourceList = false;
