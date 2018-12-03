@@ -6,12 +6,14 @@ summerready = function(){
     summer.hideLaunch();
     // 检测升级
     chenckUpdate();
+    var isBeijingGps = 1;
     function chenckUpdate () {
         var appVersion = JSON.parse(summer.getAppVersion()).versionCode;
         var params = {
             url:'/static/app/driver.json',
             type: 'get',
             callback:function (res) {
+                isBeijingGps = res.isBeijingGps;
                 if ($summer.os == "android") {
                     var NEW_VERSION = String(res.version);
                     if (NEW_VERSION > appVersion) {
@@ -188,19 +190,27 @@ summerready = function(){
     }
     /*app获取经纬度失败时*/
     function failSet() {
-        getLngLat(function (data) {
-            lng = data[0];
-            lat = data[1];
-            setCookie("lng",lng);
-            setCookie("lat",lat);
-            getList();
-        },function () {
+        if(isBeijingGps){
             lng = '116.40717';
             lat='39.90469';
             setCookie("lng",lng);
             setCookie("lat",lat);
             getList();
-        })
+        }else{
+            getLngLat(function (data) {
+                lng = data[0];
+                lat = data[1];
+                setCookie("lng",lng);
+                setCookie("lat",lat);
+                getList();
+            },function () {
+                lng = '116.40717';
+                lat='39.90469';
+                setCookie("lng",lng);
+                setCookie("lat",lat);
+                getList();
+            })
+        }
     }
     setBanner('driver',function (response) {
         addItem("#banner", response, ".swiper-wrapper");
