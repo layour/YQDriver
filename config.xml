@@ -11,16 +11,16 @@
   <versionCode>101</versionCode>  
   <versionBuild>1.1.2</versionBuild>  
   <versionName>1.0.1</versionName>  
-  <orientation>unspecified</orientation>  
+  <orientation>portrait</orientation>  
   <statusBarStyle>dark</statusBarStyle>  
   <fullScreen>false</fullScreen>  
   <windowSoftInputMode>stateHidden</windowSoftInputMode>  
   <autoHideLaunch>false</autoHideLaunch>  
-  <openMDoctor>false</openMDoctor>
-  <import id="cordova-plugin-wechat" type="web" ref="cordova">
-      <parameter>WECHATAPPID=wx7ea07fac20d8361e</parameter>
-  </import>
+  <openMDoctor>false</openMDoctor>  
+  <import id="cordova-plugin-wechat" type="web" ref="cordova"> 
+    <parameter>WECHATAPPID=wx7ea07fac20d8361e</parameter> 
+  </import>  
   <import id="cordova-plugin-summer-zbar" type="web" ref="cordova"/>  
-  <import id="cordova-plugin-file" type="web" ref="cordova"/>
+  <import id="cordova-plugin-file" type="web" ref="cordova"/>  
   <import id="cordova-plugin-summer-pay" type="web" ref="cordova"/> 
 </application>
