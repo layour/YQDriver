@@ -9,7 +9,7 @@
   <theme>blue</theme>  
   <icon relativePath="css/themes/default/app">app</icon>  
   <versionCode>101</versionCode>  
-  <versionBuild>1.1.2</versionBuild>  
+  <versionBuild>1.1.5</versionBuild>  
   <versionName>1.0.1</versionName>  
   <orientation>portrait</orientation>  
   <statusBarStyle>dark</statusBarStyle>  
@@ -22,5 +22,5 @@
   </import>  
   <import id="cordova-plugin-summer-zbar" type="web" ref="cordova"/>  
   <import id="cordova-plugin-file" type="web" ref="cordova"/>  
-  <import id="cordova-plugin-summer-pay" type="web" ref="cordova"/> 
+  <import id="cordova-plugin-summer-pay" type="web" ref="cordova"/>
 </application>
